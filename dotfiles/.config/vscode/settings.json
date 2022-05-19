@@ -1,0 +1,81 @@
+{
+    "editor.fontFamily": "\"Fira Code\", Menlo, Monaco, 'Courier New', monospace",
+    "editor.minimap.enabled": false,
+    "git.confirmSync": false,
+    "editor.tabSize": 2,
+    "editor.roundedSelection": false,
+    "editor.cursorBlinking": "solid",
+    "workbench.startupEditor": "newUntitledFile",
+    "files.hotExit": "off",
+    "editor.fontWeight": "500",
+    "editor.fontLigatures": true,
+    "editor.fontSize": 13,
+    "workbench.fontAliasing": "auto",
+    "editor.occurrencesHighlight": false,
+    "vim.hlsearch": true,
+    "workbench.colorTheme": "Solarized Dark",
+    "window.restoreWindows": "none",
+    "window.nativeFullScreen": false,
+    "editor.linkedEditing": true,
+    "extensions.ignoreRecommendations": true,
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter.notebook.ipynb"
+    },
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.python"
+    },
+    "editor.wordWrap": "off",
+    "terminal.external.osxExec": "iTerm.app",
+    "terminal.integrated.confirmOnExit": "hasChildProcesses",
+    "workbench.colorCustomizations": {
+        "terminal.ansiBrightBlack": "#002b36",
+        "terminal.ansiBrightBlue": "#839496",
+        "terminal.ansiBrightCyan": "#93a1a1",
+        "terminal.ansiBrightGreen": "#586e75",
+        "terminal.ansiBrightMagenta": "#6c71c4",
+        "terminal.ansiBrightRed": "#cb4b16",
+        "terminal.ansiBrightWhite": "#fdf6e3",
+        "terminal.ansiBrightYellow": "#657b83",
+        "terminal.ansiWhite":"#eee8d5",
+        "terminal.background": "#002b36",
+        "terminal.foreground": "#839496",
+        "terminal.selectionBackground": "#073642",
+    },
+    "vim.enableNeovim": true,
+    "vim.neovimUseConfigFile": true,
+    "zeplin.preferredApplicationType": "Web",
+    "vsnotes.defaultNotePath": "~/Notes",
+    "vsnotes.tokens": [
+        {
+            "type": "datetime",
+            "token": "{dt}",
+            "format": "YYYY-MM-DD",
+            "description": "Insert formatted datetime."
+        },
+        {
+            "type": "title",
+            "token": "{title}",
+            "description": "Insert note title from input box.",
+            "format": "Untitled"
+        },
+        {
+            "type": "extension",
+            "token": "{ext}",
+            "description": "Insert file vsnotes.",
+            "format": "md"
+        }
+    ],
+    "vim.neovimPath": "/usr/local/bin/nvim",
+    "redhat.telemetry.enabled": false,
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "eslint.workingDirectories": [
+        {
+            "directory": "./web",
+            "!cwd": true,
+            "mode": "auto"
+        }
+    ],
+    "editor.guides.indentation": false
+}
