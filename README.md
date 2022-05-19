@@ -9,8 +9,8 @@ Files:
 
 * **`dotfiles-manual`**: configuration items manually moved
 * **`dotfiles`**: configuration items
-* `setup.sh`: non-desctructive setup
-* `update.sh`: update dotfiles and submodules
+* `bin/`: supporting scripts for install, update, etc.
+* `Makefile`: task runner-ish.
 
 Philosophy:
 
