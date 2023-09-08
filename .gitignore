@@ -1,30 +1,38 @@
 # Things get noisy on certain OSes. Keep approved
 # configs only instead of the other way around.
 
+# LOSERS
+# NOTE: paths like ./dotfiles/config/ignoreme will be so broad
+# NOTE: that overrides above will throw warnings. Use a wildcard
+# NOTE: if you are overriding: ./dotfiles/config/ignoreme/*
 .*.sw*
 .DS_Store
 .netrwhist*
+dotfiles/.config/*
+dotfiles/.config/git/config.local
+dotfiles/.config/include/**/*.secrets.sh
+dotfiles/.config/merit/*.yaml
+dotfiles/.config/merit/*.yml
+dotfiles/.config/nvim*/plugged
+dotfiles/.config/shell/**/*.secrets.sh
+dotfiles/.config/strata/*
+dotfiles/.config/tmux/plugins
+dotfiles/.config/zsh*/.chpwd-recent-dirs
+dotfiles/.config/zsh*/.zcompdump*
+dotfiles/.config/zsh*/.zsh_history
+dotfiles/.config/zsh*/.zsh_sessions
+dotfiles/.config/zsh*/zsh-autocomplete/
+dotfiles/.local/bin/*
+dotfiles/.local/include/*
+dotfiles/.local/lib/*
+dotfiles/.local/share/*
+dotfiles/.local/state/*
+dotfiles/.ssh/*
+dotfiles/.vim/bundle-disabled
 node_modules
 tnsnames.ora
 
-dotfiles/.config/*
-dotfiles/.config/include/**/*.secrets.sh
-dotfiles/.config/nvim/plugged
-dotfiles/.config/strata
-dotfiles/.config/tmux/plugins
-dotfiles/.config/zsh/.chpwd-recent-dirs
-dotfiles/.config/zsh/.zcompdump*
-dotfiles/.config/zsh/.zsh_history
-dotfiles/.config/zsh/.zsh_sessions
-dotfiles/.config/zsh/zsh-autocomplete/
-dotfiles/.local/bin/*
-dotfiles/.local/include
-dotfiles/.local/lib
-dotfiles/.local/share
-dotfiles/.local/state/gh
-dotfiles/.ssh
-dotfiles/.vim/bundle-disabled
-
+# WINNERS
 !**/*.gitkeep
 !dotfiles/.config/bash
 !dotfiles/.config/bat
@@ -35,14 +43,17 @@ dotfiles/.vim/bundle-disabled
 !dotfiles/.config/git
 !dotfiles/.config/include
 !dotfiles/.config/irssi
+!dotfiles/.config/lazygit/config.yml
 !dotfiles/.config/markdownlint
 !dotfiles/.config/mc
+!dotfiles/.config/merit
 !dotfiles/.config/mutt
-!dotfiles/.config/nvim
+!dotfiles/.config/nvim*
 !dotfiles/.config/oracle
 !dotfiles/.config/perlbrew
 !dotfiles/.config/ranger
 !dotfiles/.config/readline
+!dotfiles/.config/shell
 !dotfiles/.config/strata/startpage.html
 !dotfiles/.config/task
 !dotfiles/.config/tmux
@@ -50,6 +61,7 @@ dotfiles/.vim/bundle-disabled
 !dotfiles/.config/tmuxinator
 !dotfiles/.config/vscode
 !dotfiles/.config/zsh
+!dotfiles/.local/bin/asana.py
 !dotfiles/.local/bin/iforgot.py
+!dotfiles/.local/share/wiki
 !dotfiles/.ssh/config
-!dotfiles/.ssh/config.d/.gitkeep

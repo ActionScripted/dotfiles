@@ -1,6 +1,15 @@
 [submodule "dotfiles/.config/tmux/plugins/tpm"]
 	path = dotfiles/.config/tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm.git
+[submodule "dotfiles-manual/Illustrator/SaveDocsAsPNG"]
+	path = dotfiles-manual/Illustrator/SaveDocsAsPNG
+	url = https://github.com/ActionScripted/Illustrator-SaveDocsAsPNG.git
+[submodule "dotfiles/.config/mc/lib/mc-solarized"]
+	path = dotfiles/.config/mc/lib/mc-solarized
+	url = https://github.com/iwfmp/mc-solarized-skin.git
 [submodule "dotfiles/.config/zsh/oh-my-zsh"]
 	path = dotfiles/.config/zsh/oh-my-zsh
 	url = https://github.com/robbyrussell/oh-my-zsh.git
+[submodule "dotfiles/.config/zsh/oh-my-zsh--custom/themes/powerlevel10k"]
+	path = dotfiles/.config/zsh/oh-my-zsh--custom/themes/powerlevel10k
+	url = https://github.com/romkatv/powerlevel10k.git

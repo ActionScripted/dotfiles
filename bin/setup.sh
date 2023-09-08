@@ -60,5 +60,5 @@ if [[ $dotfiles ]]; then
   echo "All set! Any existing files were moved to $BACKUPDIR"
 
 else
-  echo "You don't have anything in '$DOTFILEDIR', dude"
+  echo "You don't have anything in '$DOTFILEDIR', bro-tato"
 fi

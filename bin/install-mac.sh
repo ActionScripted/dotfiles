@@ -1,36 +1,76 @@
-#!/bin/bash
+#!/usr/bin/env zsh
 # ---
 # dotfiles install (mac)
 #
 # Install and setup software for a Mac environment
+#
+# Please checkout readme.md for more information
 
-# NOTE: DO NOT RUN THIS FILE
-# NOTE: DO NOT RUN THIS FILE
-# NOTE: DO NOT RUN THIS FILE
-# NOTE: DO NOT RUN THIS FILE
-# NOTE: DO NOT RUN THIS FILE
-# NOTE: DO NOT RUN THIS FILE
-# NOTE: ...it's more a log of stuff at this point and should
-# NOTE: ...not be run, but rather copied/pasted from until it
-# NTOE: ...is vetted and cleaned up.
+__usage=$(<<EOF
+Usage: install-mac (dotfiles!)
+  -d  dry run (show run plan)
+  -h  help
 
-HOMEDIR=$HOME
-BACKUPDIR="$HOMEDIR/.dotfiles.backups"
-CURRENTDIR=$(pwd -P)
-DOTFILEDIR="$CURRENTDIR/dotfiles"
+Example:
+  ./install-mac.sh -d
+EOF
+)
 
-mkdir -p ~/.local/share/zsh/
+# Vars
+dry_run=0
 
-# homebrew
-# python/pip
-# ruby/gems
+# Requirements
+brew_pkgs=(
+    "awscli"
+    "bat"
+    "cowsay"
+    "diff-so-fancy"
+    "eza"
+    "findutils"
+    "fortune"
+    "gnupg"
+    "httpie"
+    "jq"
+    "lazygit"
+    "lazygit"
+    "lolcat"
+    "lolcat"
+    "neovim"
+    "nginx"
+    "nmap"
+    "node"
+    "pyenv"
+    "pyenv-virtualenv"
+    "python"
+    "ripgrep"
+    "tldr"
+    "tmux"
+    "trash"
+    "tree"
+    "tree"
+    "wget"
+    "yq"
+)
 
-brew install node
+# Options
+while getopts "dh" opt; do
+    case ${opt} in
+        d ) dry_run=1 ;;
+        h ) echo $__usage; exit 1 ;;
+        \?) echo $__usage; exit 1 ;;
+    esac
+done
 
-# brew install ack composer coreutils findutils fzy mariadb neovim nginx node php python python@2 rbenv rename ripgrep ruby sqlite task the_silver_searcher tidy-html5 timewarrior tmux trash tree wget yarn
-
-ln -s ~/.config/vscode/settings.json $HOME/Library/Application Support/Code/User/settings.json
-cat ~/.config/vscode/extensions.txt | xargs -L 1 code --install-extension
+# Yeehaw
+function yeehaw() {
+    # Make dry run the default in case something
+    # with variables above got weird.
+    if [[ $dry_run -eq 0 ]]; then
+        eval "${1}"
+    else
+        echo "DRY-RUN: ${1}"
+    fi
+}
 
 # Change shell
 # Manually:
@@ -39,34 +79,35 @@ cat ~/.config/vscode/extensions.txt | xargs -L 1 code --install-extension
 #   * FIX YOUR TERMINAL, USE A NON-STANDARD SHELL:
 #     * iTerm2 > Prefs > Profiles > (profile) > General > Command > "/usr/local/bin/zsh -i"
 #     * https://apple.stackexchange.com/a/71930/74321
-if hash chsh >/dev/null 2>&1; then
-  chsh -s /usr/local/bin/zsh
-  mkdir -p $HOME/.local/share/zsh
-else
-  echo "You wanna use ZSH, you need to install it."
+if [[ "${ZSH_VERSION:-UNDEF}" == "UNDEF" ]]; then
+    if hash chsh >/dev/null 2>&1; then
+        yeehaw "chsh -s /usr/local/bin/zsh"
+        yeehaw "mkdir -p $HOME/.local/share/zsh"
+    else
+        echo "You wanna use ZSH, you need to install it."
+    fi
 fi
 
+# Directories
+yeehaw "mkdir -p ~/.local/share/zsh/"
+
+# Requirements: Install
+for pkg in "${brew_pkgs[@]}"; do
+    yeehaw "brew install ${pkg}"
+done
+
+exit 1
+
+# brew install ack composer coreutils findutils fzy mariadb neovim nginx node php python python@2 rbenv rename ripgrep ruby sqlite task the_silver_searcher tidy-html5 timewarrior tmux trash tree wget yarn
+
+ln -s ~/.config/vscode/settings.json $HOME/Library/Application Support/Code/User/settings.json
+cat ~/.config/vscode/extensions.txt | xargs -L 1 code --install-extension
+
 python3 -m pip install --upgrade jedi
-
-brew install --HEAD universal-ctags/universal-ctags/universal-ctags
-brew install diff-so-fancy
-
 python3 -m pip install --upgrade neovim
 #python3 -m pip install --upgrade pynvim
 
-brew install neovim
-brew install exa
-brew install trash
-brew install bat
-brew install tree
-brew install findutils
-
-# vim plug
-sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-
 # pyenv
-brew install pyenv pyenv-virtualenv
 # install versions from system defaults
 #   * python --version
 #   * python3 --version
@@ -102,4 +143,10 @@ pip install -U pynvim
 brew install cowsay lolcat fortune
 
 # helpers
-brew install jq yq multitail
+brew install jq yq multitail httpie
+
+# gpg
+brew install gnupg pinentry-mac
+
+# PERSONAL HOST BITS
+brew install youtube-dl ffmpeg
