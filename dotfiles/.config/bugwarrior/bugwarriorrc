@@ -1,0 +1,29 @@
+[general]
+targets = merit_jira
+
+# Include a link to the ticket in the description
+inline_links = False
+
+# Include issue comments and author name in task annotations
+annotation_comments = False
+# Default description or annotation length.
+annotation_length = 45
+# Include a link to the ticket as an annotation
+annotation_links = True
+
+# Look for "(bw)" in description (legacy) for matching.
+legacy_matching = False
+
+# One of DEBUG, INFO, WARNING, ERROR, CRITICAL, DISABLED
+log.level = WARNING
+# Log file path or dump to STDERR (default)
+#log.file = /var/log/bugwarrior.log
+
+
+[merit_jira]
+service = jira
+jira.base_uri = https://jira.merit.edu
+jira.username = mthompson
+jira.password = @oracle:eval:pass BugWarrior/Jira
+jira.query = assignee = mthompson AND resolution = Unresolved order by updated DESC
+jira.description_template = [{{jiraid}}] {{jirasummary}}

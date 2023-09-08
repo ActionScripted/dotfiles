@@ -11,7 +11,10 @@ __license__ = 'BSD-3-Clause'
 __version__ = '1.0'
 
 
-from argparse import ArgumentParser
+import argparse
+import itertools
+import typing
+
 
 # String indent
 INDENT = '    '
@@ -52,17 +55,23 @@ MEMORIES = (
     (['nc -v some-host.com 8080'], [
         'netcat verbose (-v) connection to some-host.com port 8080',
     ]),
+    (['python -m http.server 8000'], [
+        'run a simple web server on port 8000 (Python 3)',
+    ]),
     (['sudo nmap -sn 10.0.0.1/24'], [
-        'Scan network CIDR (ping sweep); no port scan'
+        'scan network CIDR (ping sweep); no port scan'
     ]),
     (['openssl s_client -showcerts -connect somesite.com:443 -servername somesite.com'], [
-        'View certificate information for somesite.com w/SNI',
+        'view certificate information for somesite.com w/SNI',
+    ]),
+    (['sudo powermetrics --samplers smc | egrep -i "temp|fan"'], [
+        'view CPU/GPU temperatures and fan speed (mac only)',
     ]),
     (['pushd /some/path; dirs -v; popd;'], [
-        'Change to /some/path, add to stack; show stack; cd and remove top of stack',
+        'change to /some/path, add to stack; show stack; cd and remove top of stack',
     ]),
     (['rsync -av --exclude ".git" user@host:source/path ./destination/path'], [
-        'Sync as archive (man page: "same as -rlptgoD") excluding .git dirs',
+        'sync as archive (man page: "same as -rlptgoD") excluding .git dirs',
         '-r recursive',
         '-l preserve symlinks',
         '-p partial/progress',
@@ -75,30 +84,35 @@ MEMORIES = (
         'add user "michael" to group "turkeys"',
     ]),
     (['tar -czvf your-file.tar.gz somedir'], [
-        'Compress (c), gzip (z), verbose (v), [using this] file (f) the "somedir" dir',
+        'compress (c), gzip (z), verbose (v), [using this] file (f) the "somedir" dir',
     ]),
     (['[mkdir somedir && ] tar -xzvf your-file.tar.gz -C somedir'], [
-        'Extract (x), unzip (z), verbose (v), [using this] file (f) to "somedir" dir',
+        'extract (x), unzip (z), verbose (v), [using this] file (f) to "somedir" dir',
+    ]),
+    (['time zsh -i -c exit'], [
+        'time (profile) zsh startup w/exit',
     ]),
     (['(Vim CLI) :%!python -m json.tool'], [
         '(from within Vim) format JSON',
     ]),
     (['wget https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'], [
-        'Download an OFFICIAL dummy PDF!',
+        'download an OFFICIAL dummy PDF!',
     ]),
 )
 
 # Choices for level of recollection
+# TODO: enum please
 VERBOSITY_LEVEL_0 = 0
 VERBOSITY_LEVEL_1 = 1
 VERBOSITY_LEVEL_2 = 2
 
 # Default recollection: STFU
-VERBOSITY_DEFAULT = VERBOSITY_LEVEL_0
+VERBOSITY_DEFAULT = VERBOSITY_LEVEL_1
 
 
 # Group of Different functions for different styles
-class Style():
+class Style():  # pylint: disable=too-few-public-methods
+    """ Styles for CLI output. """
     BLACK = '\033[30m'
     BLUE = '\033[34m'
     BOLD = '\033[1m'
@@ -113,14 +127,15 @@ class Style():
     YELLOW = '\033[33m'
 
 
-def remember(search=None, verbosity=VERBOSITY_DEFAULT):
+def remember(search: typing.Optional[str] = None, verbosity: int = VERBOSITY_DEFAULT) -> None:
+    """Print memories to stdout, maybe search."""
     memory_count = 0
 
     for m in MEMORIES:
-        if search and search.lower() not in ''.join(m[0]).lower():
+        if search and search.lower() not in ' '.join(itertools.chain(*m)).lower():
             continue
-        else:
-            memory_count += 1
+
+        memory_count += 1
 
         for cmd in m[0]:
             print(Style.YELLOW + cmd)
@@ -138,15 +153,14 @@ def remember(search=None, verbosity=VERBOSITY_DEFAULT):
 
             # No newline (or default) if not verbose. We still want the reset
             # but we don't want to space out unless verbose.
-            print_kwargs = {'end': ''} if verbosity >= VERBOSITY_LEVEL_1 else {}
-            print(Style.RESET, **print_kwargs)
+            print(Style.RESET, {'end': ''} if verbosity >= VERBOSITY_LEVEL_1 else {})
 
     if not memory_count:
         print('(no matches)')
 
 
 if __name__ == '__main__':
-    parser = ArgumentParser(description='Remember!')
+    parser = argparse.ArgumentParser(description='Remember!')
 
     parser.add_argument('search',
                         help='Search query (optional)',
@@ -164,10 +178,10 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     if args.verbose_1:
-        verbosity = 1
+        ARG_VERBOSITY = 1
     elif args.verbose_2:
-        verbosity = 2
+        ARG_VERBOSITY = 2
     else:
-        verbosity = VERBOSITY_DEFAULT
+        ARG_VERBOSITY = VERBOSITY_DEFAULT
 
-    remember(args.search, verbosity)
+    remember(args.search, ARG_VERBOSITY)

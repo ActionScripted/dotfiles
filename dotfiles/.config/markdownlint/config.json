@@ -1,0 +1,6 @@
+{
+  "default": true,
+  "no-hard-tabs": true,
+  "line-length": false,
+  "whitespace": true
+}

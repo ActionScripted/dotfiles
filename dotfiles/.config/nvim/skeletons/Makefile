@@ -1,14 +1,19 @@
-# Recipe targets (that aren't files...all of them)
-.PHONY : default dev development
+# Variables
+foo := bar
 
+# Recipes: Default
+.DEFAULT_GOAL := help
 
-# Recipes: Default (first is "default")
-default: development
-
+# Recipe phony targets (that aren't files...all of them)
+.PHONY : dev development
 
 # Recipes: Aliases
 dev: development
 
-
-development:
+# Recipes: Targets
+development: ## Development stuff and things
 	echo "Sup"
+
+help: ## Show help
+	@echo "Usage: make [recipe]\n\nRecipes:"
+	@grep -h '##' $(MAKEFILE_LIST) | grep -v grep | sed -e 's/\(.*\):.*## \(.*\)/\1|    \2/' | tr '|' '\n'

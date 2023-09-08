@@ -1,52 +1,89 @@
-[user]
-  name = Michael Thompson
-  email = actionscripted@gmail.com
 [color]
-  ui = true
+	ui = true
+[color "diff"]
+	commit = yellow
+	frag = magenta
+	meta = yellow
+	new = green
+	old = red
+	whitespace = red reverse
+[color "diff-highlight"]
+	newHighlight = green 22
+	newNormal = green
+	oldHighlight = red 52
+	oldNormal = red
+[core]
+	pager = diff-so-fancy | less --tabs=4 -RFX
+[commit]
+	gpgsign = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[gpg]
+	program = gpg
+[init]
+	defaultBranch = main
 [pull]
-  ff = only
-  rebase = true
+	ff = only
+	rebase = true
 [push]
-  default = current
+	default = current
+[user]
+	email = actionscripted@gmail.com
+	name = Michael Thompson
+
 [alias]
-  ba = branch --all
-	bc = "!bc() { git branch --no-color --merged | egrep -v \"(^\\*|master|dev)\" | gxargs -r git branch -d; }; bc"
-  bcl = "!bc() { git branch --no-color --merged | egrep -v \"(^\\*|main|master|dev)\" | xargs -r git branch -d; }; bc"
-  bcs = "!bcs() { git checkout -q master && git for-each-ref refs/heads/ \"--format=%(refname:short)\" | while read branch; do mergeBase=$(git merge-base master $branch) && [[ $(git cherry master $(git commit-tree $(git rev-parse \"$branch^{tree}\") -p $mergeBase -m _)) == \"-\"* ]] && git branch -D $branch; done }; bcs"
-  br = branch
-  co = checkout
-  df = "!df() { [ \"$GIT_PREFIX\" != \"\" ] && cd "$GIT_PREFIX"; git diff --color $@ | diff-so-fancy | less --tabs=4 -RFX; }; df"
-  fa = fetch --prune --all
-  first = log -n 1 --reverse
-  hoard = stash --include-untracked
-  last = log -n 1
-  leaderboard = shortlog -s -n
-  st = status
-  # https://gist.github.com/bessarabov/674ea13c77fc8128f24b5e3f53b7f094#gistcomment-2974556
-  times = "!git log --author=\"$(git config user.name)\" --date=iso \
+	# Functions/Features
+	branch-all = branch --all
+	branch-clean = "!fun() { git branch --no-color --merged | egrep -v \"(^\\*|master|dev)\" | gxargs -r git branch -d; }; fun"
+	branch-clean-linux = "!fun() { git merged | xargs -r git branch -d; }; fun"
+	branch-clean-squash = "!fun() { \
+		bases='main master'; \
+		for base in $(echo $bases); do \
+				git checkout -q $base 2>/dev/null && \
+				git for-each-ref refs/heads/ \"--format=%(refname:short)\" | \
+				while read branch; do \
+					mergeBase=$(git merge-base $base $branch) && \
+					[[ $(git cherry $base $(git commit-tree $(git rev-parse \"$branch^{tree}\") -p $mergeBase -m _)) == \"-\"* ]] && \
+					git branch -D $branch; \
+				done; \
+		done; \
+	}; fun"
+	diff-fancy = "!fun() { [ \"$GIT_PREFIX\" != \"\" ] && cd "$GIT_PREFIX"; git diff --color $@ | diff-so-fancy | less --tabs=4 -RFX; }; fun"
+	first = log -n 1 --reverse
+	hoard = stash --include-untracked
+	last = log -n 1
+	leaderboard = shortlog -s -n
+	merged = "!fun() { git branch --no-color --merged | egrep -v \"(^\\*|main|master)\"; }; fun"
+# https://gist.github.com/bessarabov/674ea13c77fc8128f24b5e3f53b7f094#gistcomment-2974556
+	times-me = "!git log --author=\"$(git config user.name)\" --date=iso \
         | perl -nalE 'if (/^Date:\\s+[\\d-]{10}\\s(\\d{2})/) { say $1+0 }' \
         | sort \
         | uniq -c \
         | perl -MList::Util=max -nalE '$h{$F[1]} = $F[0]; }{ $m = max values %h; foreach (0..23) { $h{$_} = 0 if not exists $h{$_} } foreach (sort {$a <=> $b } keys %h) { say sprintf \"%02d - %4d %s\", $_, $h{$_}, \"*\"x ($h{$_} / $m * 50); }'"
-  wtf = blame --color-lines --first-parent --root
-[color "diff-highlight"]
-  oldNormal = red
-  oldHighlight = red 52
-  newNormal = green
-  newHighlight = green 22
-[color "diff"]
-  commit = yellow
-  frag = magenta
-  meta = yellow
-  new = green
-  old = red
-  whitespace = red reverse
-[core]
-  pager = diff-so-fancy | less --tabs=4 -RFX
-[filter "lfs"]
-  clean = git-lfs clean -- %f
-  smudge = git-lfs smudge -- %f
-  process = git-lfs filter-process
-  required = true
+	times-all = "!git log --date=iso \
+        | perl -nalE 'if (/^Date:\\s+[\\d-]{10}\\s(\\d{2})/) { say $1+0 }' \
+        | sort \
+        | uniq -c \
+        | perl -MList::Util=max -nalE '$h{$F[1]} = $F[0]; }{ $m = max values %h; foreach (0..23) { $h{$_} = 0 if not exists $h{$_} } foreach (sort {$a <=> $b } keys %h) { say sprintf \"%02d - %4d %s\", $_, $h{$_}, \"*\"x ($h{$_} / $m * 50); }'"
+	wtf = blame --color-lines --first-parent --root
+	# Shortcuts
+	ba = branch-all
+	bc = "!fun() { git branch --no-color --merged | egrep -v \"(^\\*|master|dev)\" | gxargs -r git branch -d; }; fun"
+	bcl = branch-clean-linux
+	bcs = branch-clean-squash
+	br = branch
+	co = checkout
+	df = diff-fancy
+	fa = fetch --prune --all
+	st = status
+	sync = !git fa && git pull && git bc && git bcs
+	times = times-me
+
+[include]
+	path = ~/.config/git/config.local
+
 [includeIf "gitdir:~/Strata/"]
-  path = ~/Strata/.gitconfig
+	path = ~/Strata/.gitconfig

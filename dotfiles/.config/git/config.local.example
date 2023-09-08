@@ -1,0 +1,3 @@
+# vim: set filetype=gitconfig :
+[user]
+	signingkey = <some GPG key here>

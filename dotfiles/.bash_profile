@@ -22,3 +22,4 @@ if [[ $(pgrep bash | wc -l) -le 0 ]]; then
 fi
 
 export PATH="$HOME/.poetry/bin:$PATH"
+. "/Users/michael/.local/share/cargo/env"
