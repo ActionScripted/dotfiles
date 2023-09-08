@@ -5,6 +5,10 @@
 # Install and setup software for a Mac environment
 #
 # Please checkout readme.md for more information
+#
+# WARN: THIS IS MORE NOTES THAN SCRIPT. DO NOT RUN.
+# WARN: THIS IS MORE NOTES THAN SCRIPT. DO NOT RUN.
+# WARN: THIS IS MORE NOTES THAN SCRIPT. DO NOT RUN.
 
 __usage=$(<<EOF
 Usage: install-mac (dotfiles!)
