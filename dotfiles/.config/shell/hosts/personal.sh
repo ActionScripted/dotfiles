@@ -5,12 +5,15 @@
 # Includes
 source "$XDG_CONFIG_HOME"/shell/hosts/personal.secrets.sh
 case $HOSTNAME in
-    starlabs*)      source "$XDG_CONFIG_HOME"/shell/arch/linux.sh ;;
+    starlabs*) source "$XDG_CONFIG_HOME"/shell/arch/linux.sh ;;
     tho-lap-dolly*) source "$XDG_CONFIG_HOME"/shell/arch/mac.sh ;;
 esac
 
 # AWS
 export SHOW_AWS_PROMPT=false
+
+# GitHub
+export GITHUB_USER='CHANGEME'
 
 # Perlbrew
 if command -v perlbrew >/dev/null; then
@@ -29,4 +32,4 @@ eval "$(pyenv init -)"
 source "${XDG_DATA_HOME}/cargo/env"
 
 # Environment
-export EMAIL='actionscripted@gmail.com'
+export EMAIL='CHANGEME@gmail.com'

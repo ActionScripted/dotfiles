@@ -10,10 +10,10 @@ source "$XDG_CONFIG_HOME"/shell/hosts/strata.secrets.sh
 alias vpn="/opt/cisco/secureclient/bin/vpn"
 
 # Defaults
-export EMAIL='michael.thompson@strataoncology.com'
+export EMAIL='CHANGEME@strataoncology.com'
 
 # GitHub
-export GITHUB_USER='actionscripted'
+export GITHUB_USER='CHANGEME'
 
 # Homebrew (M1)
 [[ -f /opt/homebrew/bin/brew ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
