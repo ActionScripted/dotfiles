@@ -51,6 +51,12 @@ make setup
   - Put your sensitive stuff here like API keys, etc.
   - Update the corresponding shell files to source these as needed.
 
+# Personalization
+
+Once you've gotten things setup you can trash `.git` and create/init your own repo. This should be added to your VCS remote in a private repo and never be public. It's really easy to leak sensitive stuff through shell files, wiki docs, etc. (But you're using `*.secrets.sh`, right? Right?)
+
+You can always pull down changes from this repo into your private repo, but other than Neovim it doesn't change much.
+
 # Updating
 
 Update core and dependencies:
