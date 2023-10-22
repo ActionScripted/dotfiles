@@ -14,6 +14,7 @@ Files:
 Philosophy:
 
 - Non-destructive; versioned backups in `~/dotfiles.backups`.
+- Secrets are intentionally separate/safe from any version control.
 - Use XDG Base Directory specifications when possible.
 
 # Setup
@@ -30,19 +31,23 @@ cd ~/.dotfiles
 make setup
 ```
 
-# Setup, Manual
-
 > [!INFO]
-> These are highly recommended after running the automatic setup. You should also look at the shell files and update your email and create `*.secrets.sh`.
+> These are highly recommended after running the automatic setup.
 
 - Fonts:
   - `brew tap caskroom/fonts`
   - `brew install font-fira-code`
   - `brew install font-fira-code-nerd-font`
   - iTerm2: Preferences > Text > Font: make sure the font and the non-ascii font are set correctly.
-- Illustrator:
-  - Need more? http://shspage.com/aijs/en/
-  - `cp dotfiles-manual/Illustrator-SaveDocsAsPNG/SaveDocsAsPNG.jsx /Applications/Adobe Illustrator [version]/Presets/[locale]/Scripts/`
+- Personalization:
+  - Find and replace all "CHANGEME" to either a user name or email:
+    - `grep -rl "CHANGEME" ~/.dotfiles`
+    - Edit at will!
+- Secrets:
+  - `touch ~/.config/shell/hosts/personal.secrets.sh`
+  - `touch ~/.config/shell/hosts/strata.secrets.sh`
+  - Put your sensitive stuff here like API keys, etc.
+  - Update the corresponding shell files to source these as needed.
 
 # Updating
 
