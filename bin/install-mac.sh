@@ -5,40 +5,40 @@
 # Install and setup software for a Mac environment
 #
 # Please checkout readme.md for more information
-#
-# WARN: THIS IS MORE NOTES THAN SCRIPT. DO NOT RUN.
-# WARN: THIS IS MORE NOTES THAN SCRIPT. DO NOT RUN.
-# WARN: THIS IS MORE NOTES THAN SCRIPT. DO NOT RUN.
 
 __usage=$(<<EOF
 Usage: install-mac (dotfiles!)
-  -d  dry run (show run plan)
+  -c  confirm (dry run by default)
   -h  help
 
 Example:
-  ./install-mac.sh -d
+  ./install-mac.sh -c
 EOF
 )
 
 # Vars
-dry_run=0
+dry_run=1
 
 # Requirements
 brew_pkgs=(
     "awscli"
     "bat"
+    "coreutils"
     "cowsay"
     "diff-so-fancy"
     "eza"
     "findutils"
+    "font-fira-code"
+    "font-fira-code-nerd-font"
     "fortune"
+    "fzy"
+    "git"
     "gnupg"
     "httpie"
     "jq"
     "lazygit"
-    "lazygit"
     "lolcat"
-    "lolcat"
+    "multitail"
     "neovim"
     "nginx"
     "nmap"
@@ -46,26 +46,39 @@ brew_pkgs=(
     "pyenv"
     "pyenv-virtualenv"
     "python"
+    "rename"
     "ripgrep"
     "tldr"
     "tmux"
     "trash"
     "tree"
-    "tree"
     "wget"
+    "yarn"
     "yq"
 )
 
 # Options
-while getopts "dh" opt; do
+while getopts "ch-:" opt; do
     case ${opt} in
-        d ) dry_run=1 ;;
+        c ) dry_run=0 ;;
         h ) echo $__usage; exit 1 ;;
-        \?) echo $__usage; exit 1 ;;
+        - )
+            case "${OPTARG}" in
+                commit )
+                    dry_run=0
+                    ;;
+                * )
+                    echo "Invalid option: --${OPTARG}"
+                    echo "$__usage"
+                    exit 1
+                    ;;
+            esac
+            ;;
+        \? ) echo $__usage; exit 1 ;;
     esac
 done
 
-# Yeehaw
+# Yeehaw (send it)
 function yeehaw() {
     # Make dry run the default in case something
     # with variables above got weird.
@@ -78,15 +91,14 @@ function yeehaw() {
 
 # Change shell
 # Manually:
-#   *  chsh -s /bin/{bash,zsh}
-#   *  System Preferences > Users & Groups > (you) > (right-click) > Advanced Options > Login shell > /bin/{bash, zsh}
+#   * chsh -s /bin/{bash,zsh}
+#   * System Preferences > Users & Groups > (you) > (right-click) > Advanced Options > Login shell > /bin/{bash, zsh}
 #   * FIX YOUR TERMINAL, USE A NON-STANDARD SHELL:
 #     * iTerm2 > Prefs > Profiles > (profile) > General > Command > "/usr/local/bin/zsh -i"
 #     * https://apple.stackexchange.com/a/71930/74321
 if [[ "${ZSH_VERSION:-UNDEF}" == "UNDEF" ]]; then
     if hash chsh >/dev/null 2>&1; then
         yeehaw "chsh -s /usr/local/bin/zsh"
-        yeehaw "mkdir -p $HOME/.local/share/zsh"
     else
         echo "You wanna use ZSH, you need to install it."
     fi
@@ -95,62 +107,33 @@ fi
 # Directories
 yeehaw "mkdir -p ~/.local/share/zsh/"
 
+# Requirements: Setup
+yeehaw "brew tap earthly/earthly"
+yeehaw "brew tap github/gh"
+yeehaw "brew tap hashicorp/tap"
+yeehaw "brew tap homebrew/cask-fonts"
+yeehaw "brew tap oven-sh/bun"
+
 # Requirements: Install
 for pkg in "${brew_pkgs[@]}"; do
     yeehaw "brew install ${pkg}"
 done
 
-exit 1
+# Python: Environment
+python_version=$(python --version 2>&1 | awk '{print $2}')
+yeehaw "pyenv install ${python_version}"
+yeehaw "pyenv global ${python_version}"
 
-# brew install ack composer coreutils findutils fzy mariadb neovim nginx node php python python@2 rbenv rename ripgrep ruby sqlite task the_silver_searcher tidy-html5 timewarrior tmux trash tree wget yarn
+# Python: Packages
+yeehaw "pip install --upgrade pip"
+yeehaw "pip install --upgrade cookiecutter ipython numpy pandas"
 
-ln -s ~/.config/vscode/settings.json $HOME/Library/Application Support/Code/User/settings.json
-cat ~/.config/vscode/extensions.txt | xargs -L 1 code --install-extension
+# VS Code: Setup
+vscode_target="$HOME/Library/Application Support/Code/User/settings.json"
+if [ -e "$vscode_target" ]; then
+    yeehaw "rm $vscode_target"
+fi
+yeehaw "ln -s ~/.config/vscode/settings.json $vscode_target"
+yeehaw "cat ~/.config/vscode/extensions.txt | xargs -L 1 code --install-extension"
 
-python3 -m pip install --upgrade jedi
-python3 -m pip install --upgrade neovim
-#python3 -m pip install --upgrade pynvim
-
-# pyenv
-# install versions from system defaults
-#   * python --version
-#   * python3 --version
-pyenv install 3.9.7
-pyenv install 2.7.16
-
-# Common packages
-pip_common="black cookiecutter flake8 jedi ipython mypy numpy"
-
-# setup shell environments
-pyenv virtualenv 3.9.7 shell3
-pyenv activate shell3
-pip install -U "$(pip_common)"
-
-pyenv virtualenv 2.7.16 shell2
-pyenv activate shell2
-pip install -U "$(pip_common)"
-
-# setup vim environments
-pyenv virtualenv 3.9.7 neovim3
-pyenv activate neovim3
-pip install -U "$(pip_common)"
-pip install -U neovim
-
-pyenv virtualenv 2.7.16 neovim2
-pyenv activate neovim2
-pip install -U "$(pip_common)"
-pip install -U pynvim
-
-# For VIM stuff, install ALE and then ":ALEInfo"
-
-# sure
-brew install cowsay lolcat fortune
-
-# helpers
-brew install jq yq multitail httpie
-
-# gpg
-brew install gnupg pinentry-mac
-
-# PERSONAL HOST BITS
-brew install youtube-dl ffmpeg
+exit 0

@@ -20,11 +20,11 @@ echo "Updating repo and submodules..."
 git pull
 git submodule update --init --remote --merge
 
-echo ""
-echo "Upgrading Neovim plugins and packages..."
-nvim --headless "+Lazy! update" +qa
-nvim --headless "+MasonUpdate" +qa
-echo ""
+#echo ""
+#echo "Upgrading Neovim plugins and packages..."
+#nvim --headless "+Lazy! update" +qa
+#nvim --headless "+MasonUpdate" +qa
+#echo ""
 
 echo ""
 echo "Upgrading Tmux plugins..."
