@@ -6,10 +6,11 @@ Automatically symlink (and backup) configuration files.
 
 Files:
 
-- **`dotfiles-manual`**: configuration items manually moved
 - **`dotfiles`**: configuration items
-- `setup.sh`: non-desctructive setup
-- `update.sh`: update dotfiles and submodules
+- **`dotfiles-manual`**: configuration items manually moved
+- `bin/install-*.sh`: install platform-specific deps (only macOS is safe)
+- `bin/setup.sh`: non-desctructive setup
+- `bin/update.sh`: update dotfiles and submodules
 
 Philosophy:
 
