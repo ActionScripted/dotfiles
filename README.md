@@ -18,7 +18,8 @@ Philosophy:
 
 # Setup
 
-**NOTE:** setup backs up existing files and symlinks to `~/.dotfiles.backups`
+> [!IMPORTANT]
+> Setup backs up existing files and symlinks to `~/.dotfiles.backups`. It is non-destructive, every run.
 
 ```bash
 # Clone to ~/.dotfiles
@@ -31,9 +32,13 @@ make setup
 
 # Setup, Manual
 
+> [!INFO]
+> These are highly recommended after running the automatic setup. You should also look at the shell files and update your email and create `*.secrets.sh`.
+
 - Fonts:
   - `brew tap caskroom/fonts`
-  - `brew cask install font-fira-code`
+  - `brew install font-fira-code`
+  - `brew install font-fira-code-nerd-font`
   - iTerm2: Preferences > Text > Font: make sure the font and the non-ascii font are set correctly.
 - Illustrator:
   - Need more? http://shspage.com/aijs/en/
@@ -87,7 +92,6 @@ Setup:
 # This is for macOS; change as needed
 # https://code.visualstudio.com/docs/getstarted/settings#_settings-file-locations
 ln -s ~/.config/vscode/settings.json $HOME/Library/Application\ Support/Code/User/settings.json
-
 cat ~/.config/vscode/extensions.txt | xargs -L 1 code --install-extension
 ```
 
