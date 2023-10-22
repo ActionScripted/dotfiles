@@ -31,6 +31,12 @@ fi
 # Starship
 #eval "$(starship init zsh)"
 
+function nvminit() {
+    export NVM_DIR="$HOME/.config/nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
+}
+
 function homebrew_search_local_only() {
     # Homebrew searches GitHub if it has a valid API (token)
     # and if you're reasonably up-to-date locally, why? It's

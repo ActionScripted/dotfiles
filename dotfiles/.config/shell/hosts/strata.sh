@@ -12,6 +12,9 @@ alias vpn="/opt/cisco/secureclient/bin/vpn"
 # Defaults
 export EMAIL='michael.thompson@strataoncology.com'
 
+# GitHub
+export GITHUB_USER='actionscripted'
+
 # Homebrew (M1)
 [[ -f /opt/homebrew/bin/brew ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
 
@@ -36,12 +39,6 @@ export VPN_STATUS_FILE="$XDG_CACHE_HOME/cisco-secureclient-connected"
 
 # Zsh
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
-
-function nvminit() {
-    export NVM_DIR="$HOME/.config/nvm"
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
-}
 
 function vpndown() {
     vpn disconnect
