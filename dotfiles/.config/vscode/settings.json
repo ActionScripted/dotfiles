@@ -194,5 +194,9 @@
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
 	"indenticator.color.dark": "#2ac3de",
-	"vscode-neovim.neovimClean": true
+	"vscode-neovim.neovimClean": true,
+	"vscode-neovim.neovimExecutablePaths.darwin": "/usr/local/bin/nvim",
+	"extensions.experimental.affinity": {
+		"asvetliakov.vscode-neovim": 1
+	}
 }

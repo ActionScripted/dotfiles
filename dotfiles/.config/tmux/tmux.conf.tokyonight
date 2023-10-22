@@ -18,7 +18,9 @@ bind k select-pane -U
 bind l select-pane -R
 
 # NeoVim fix (see nvim > :checkhealth for more)
-set -sg escape-time 10
+#set -sg escape-time 10
+# Zsh fix (see https://www.johnhawthorn.com/2012/09/vi-escape-delays/)
+set -s escape-time 0
 
 # Start windows and panes at 1, not 0
 set  -g base-index 1
