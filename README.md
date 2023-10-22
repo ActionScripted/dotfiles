@@ -71,7 +71,7 @@ Things you might want to customize:
 
 Update core and dependencies:
 
-- `cd ~/.dotfiles && make update`
+- `update_dotfiles` or `cd ~/.dotfiles && make update`
 
 Add/edit files:
 
