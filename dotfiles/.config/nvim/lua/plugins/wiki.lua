@@ -1,13 +1,14 @@
 --[[
 Wiki
 ]]
+
+local config = require("config.kickflip")
+
 return {
   {
     "vimwiki/vimwiki",
     cmd = { "VimwikiIndex" },
     init = function()
-      local config = require("config.kickflip")
-
       vim.g.vimwiki_list = {
         {
           ext = ".md",

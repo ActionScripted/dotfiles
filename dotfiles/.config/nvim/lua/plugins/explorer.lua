@@ -1,15 +1,11 @@
 --[[
 File Explorer
+https://github.com/nvim-neo-tree/neo-tree.nvim
 ]]
+
 return {
   {
     "nvim-neo-tree/neo-tree.nvim",
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-    },
-    cmd = "Neotree",
     keys = {
       {
         "<leader>e",
@@ -19,20 +15,6 @@ return {
         desc = "File Explorer (toggle)",
       },
     },
-    deactivate = function()
-      vim.cmd([[Neotree close]])
-    end,
-    init = function()
-      vim.g.neo_tree_remove_legacy_commands = 1
-
-      -- Show explorer if editor is launched with a directory argument.
-      if vim.fn.argc() == 1 then
-        local stat = vim.loop.fs_stat(vim.fn.argv(0))
-        if stat and stat.type == "directory" then
-          require("neo-tree")
-        end
-      end
-    end,
     opts = {
       default_component_configs = {
         indent = {
@@ -76,7 +58,7 @@ return {
             end)
           end,
         },
-        follow_current_file = true,
+        follow_current_file = { enabled = true },
         use_libuv_file_watcher = true,
       },
       window = {
@@ -84,18 +66,5 @@ return {
         mappings = { ["<space>"] = "none" },
       },
     },
-    config = function(_, opts)
-      require("neo-tree").setup(opts)
-      --[[
-      vim.api.nvim_create_autocmd("TermClose", {
-        pattern = "*lazygit",
-        callback = function()
-          if package.loaded["neo-tree.sources.git_status"] then
-            require("neo-tree.sources.git_status").refresh()
-          end
-        end,
-      })
-      ]]
-    end,
   },
 }

@@ -1,3 +1,6 @@
+--[[
+Git: LazyGit integration.
+]]
 return {
   "kdheepak/lazygit.nvim",
   lazy = false,

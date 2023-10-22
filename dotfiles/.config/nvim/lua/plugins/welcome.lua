@@ -4,9 +4,9 @@ Welcome: start screen.
 Looking to get weird? Check out:
 https://github.com/goolord/alpha-nvim/discussions/16
 ]]
+
 return {
   "goolord/alpha-nvim",
-  dependencies = { "nvim-tree/nvim-web-devicons" },
   config = function()
     local theme = require("alpha.themes.startify")
 

@@ -1,33 +1,21 @@
 --[[
--- Packages: LSP servers, DAP servers, linters, formatters, etc.
--- ---
--- Handles installation of packages and their dependencies without
--- you having to manually install them.
---
--- Helpful commands / related:
---  :Mason - Manage packages
+Packages: LSP servers, DAP servers, linters, formatters, etc.
+---
+Handles installation of packages and their dependencies without
+you having to manually install them.
+
+Helpful commands / related:
+ :Mason - Manage packages
 ]]
 
-local ensure_installed = {
-  "beautysh",
-  "black",
-  "eslint_d",
-  "flake8",
-  "isort",
-  "prettierd",
-  --"ruff",
-  --"ruff-lsp",
-  "shfmt",
-  "stylua",
-  -- NOTE: (manual) checkmake
-}
+local config = require("config.kickflip")
 
 return {
   {
     "williamboman/mason.nvim",
     cmd = "Mason",
     keys = { { "<leader>m", "<cmd>Mason<cr>", desc = "Mason (packages)" } },
-    opts = { ensure_installed = ensure_installed },
+    opts = { ensure_installed = config.packages.ensure_installed },
     ---@param opts MasonSettings | {ensure_installed: string[]}
     config = function(_, opts)
       require("mason").setup(opts)

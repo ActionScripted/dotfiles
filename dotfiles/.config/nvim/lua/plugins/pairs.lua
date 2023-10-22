@@ -1,11 +1,10 @@
 --[[
--- Pairs: auto close/match brackets, quotes, etc.
+Pairs: auto close/match brackets, quotes, etc.
 ]]
 
 return {
   {
     "echasnovski/mini.pairs",
-    event = "VeryLazy",
     opts = {},
   },
 
