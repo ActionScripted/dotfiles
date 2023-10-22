@@ -1,406 +1,615 @@
-<!DOCTYPE html>
+<!doctype html>
 <html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>michael.thompson@strata</title>
+    <meta name="description" content="Start page for michael.thompson@strata" />
 
-  <title>michael.thompson@strata</title>
-  <meta name="description" content="Start page for michael.thompson@strata" />
+    <style type="text/css">
+      html,
+      body {
+        background: rgba(42, 42, 46, 1);
+        border: 0;
+        box-sizing: border-box;
+        color: rgba(249, 249, 250, 0.75);
+        font:
+          400 100%/1.5 "Helvetica Neue",
+          Arial,
+          Helvetica,
+          sans-serif;
+        margin: 0;
+        padding: 0;
+      }
 
-  <style type="text/css">
-    html,
-    body {
-      background: rgba(42, 42, 46, 1);
-      border: 0;
-      box-sizing: border-box;
-      color: rgba(249, 249, 250, 0.75);
-      font: 400 100%/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
-      margin: 0;
-      padding: 0;
-    }
+      *,
+      *:before,
+      *:after {
+        box-sizing: inherit;
+      }
 
-    *,
-    *:before,
-    *:after {
-      box-sizing: inherit;
-    }
+      a {
+        color: #00babc;
+      }
 
-    a {
-      color: #00babc;
-    }
+      h1,
+      h1 a {
+        color: rgba(249, 249, 250, 0.25);
+        font-size: 2rem;
+        font-weight: normal;
+        margin: 0;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 100%;
+      }
 
-    h1,
-    h1 a {
-      color: rgba(249, 249, 250, 0.25);
-      font-size: 2rem;
-      font-weight: normal;
-      margin: 0;
-      max-width: 100%;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      width: 100%;
-    }
+      h1 a {
+        text-decoration: none;
+      }
 
-    h1 a {
-      text-decoration: none;
-    }
+      h1 a:hover {
+        color: #00babc;
+      }
 
-    h1 a:hover {
-      color: #00babc;
-    }
+      ul,
+      li {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
 
-    ul,
-    li {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
+      .global-header,
+      .global-footer {
+        margin: 1.5em;
+        text-align: center;
+      }
 
-    .global-header,
-    .global-footer {
-      margin: 1.5em;
-      text-align: center;
-    }
+      .help-toggle,
+      .link-anchor {
+        border-radius: 4px;
+        border: 2px solid rgba(249, 249, 250, 0.125);
+        color: rgba(249, 249, 250, 0.75);
+        cursor: pointer;
+        line-height: 1.4;
+        padding: 0.5em;
+        text-align: center;
+        text-decoration: none;
+      }
 
-    .help-toggle,
-    .link-anchor {
-      border-radius: 4px;
-      border: 2px solid rgba(249, 249, 250, 0.125);
-      color: rgba(249, 249, 250, 0.75);
-      cursor: pointer;
-      line-height: 1.4;
-      padding: 0.5em;
-      text-align: center;
-      text-decoration: none;
-    }
+      .section-block {
+        background: rgba(249, 249, 250, 0.0625);
+        border-radius: 4px;
+        margin: 1.5em auto;
+        max-width: 56em;
+        padding: 1.5em;
+        width: 80%;
+      }
 
-    .section-block {
-      background: rgba(249, 249, 250, 0.0625);
-      border-radius: 4px;
-      margin: 1.5em auto;
-      max-width: 56em;
-      padding: 1.5em;
-      width: 80%;
-    }
+      .section-block > *:first-child {
+        margin-top: 0;
+      }
 
-    .section-block>*:first-child {
-      margin-top: 0;
-    }
+      .section-block > *:last-child {
+        margin-bottom: 0;
+      }
 
-    .section-block>*:last-child {
-      margin-bottom: 0;
-    }
-
-    .link-list {
-      display: grid;
-      gap: 1em;
-      grid-template-columns: repeat(2, 1fr);
-      list-style: none;
-      padding: 0;
-    }
-
-    .link-item {
-      align-items: stretch;
-      display: flex;
-      justify-content: center;
-      min-height: 4em;
-      text-align: center;
-    }
-
-    .link-anchor {
-      align-items: center;
-      display: flex;
-      flex-direction: column;
-      flex: 1 1 auto;
-      font-size: 0.75rem;
-      font-style: italic;
-      justify-content: center;
-      line-height: 1.4;
-      max-width: 100%;
-      padding: 0.5em;
-      text-decoration: none;
-      text-overflow: ellipsis;
-      width: 100%;
-    }
-
-    .link-anchor:active,
-    .link-anchor:focus,
-    .link-anchor:hover {
-      border-color: #00babc;
-      color: #00babc;
-    }
-
-    .link-anchor strong {
-      display: block;
-      font-style: normal;
-      font-size: 0.875rem;
-    }
-
-    .help-toggle {
-      display: block;
-      font-size: 0.85rem;
-    }
-
-    .help-toggle:active .help-toggle:focus,
-    .help-toggle:hover {
-      border-color: #00babc;
-      color: #00babc;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    .section-block--global .link-item {
-      min-height: 0;
-    }
-
-    .section-block--global .link-item a strong {
-      font-size: 0.85rem;
-      font-weight: normal;
-    }
-
-    .section-block--local .link-item {
-      min-height: 0;
-    }
-
-    .section-block--local .link-anchor {
-      align-content: center;
-      align-items: baseline;
-      flex-direction: row;
-      font-style: normal;
-    }
-
-    .local-host {
-      font-weight: bold;
-    }
-
-    .local-port {
-      font-style: normal;
-      padding-left: 0.125em;
-      opacity: 0.625;
-    }
-
-    .link-cols {
-      align-content: stretch;
-      align-items: stretch;
-      display: flex;
-      flex-flow: row nowrap;
-      gap: 1em;
-      justify-content: center;
-      width: 100%;
-    }
-
-    .link-cols>li {
-      display: grid;
-      gap: 0.5em;
-      grid-template-columns: repeat(0.5fr);
-      width: 100%;
-    }
-
-    .link-cols>li>*:nth-child(1),
-    .link-cols>li>*:nth-child(2) {
-      grid-column: 1 / span 2;
-    }
-
-    .link-cols-header {
-      flex: 1 1 auto;
-      flex-flow: column nowrap;
-      gap: 0.5em;
-    }
-
-    .link-cols-header {
-      flex-flow: column wrap;
-      font-size: 0.825em;
-      text-align: center;
-    }
-
-    @media (min-width: 576px) {
       .link-list {
-        grid-template-columns: repeat(4, 1fr);
+        display: grid;
+        gap: 1em;
+        grid-template-columns: repeat(2, 1fr);
+        list-style: none;
+        padding: 0;
       }
 
       .link-item {
-        min-height: 5em;
+        align-items: stretch;
+        display: flex;
+        justify-content: center;
+        min-height: 4em;
+        text-align: center;
       }
 
-      /* TOOD: this doesn't actually work this way */
-      .section-block--global .link-list,
-      .section-block--local .link-list {
-        grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+      .link-anchor {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+        font-size: 0.75rem;
+        font-style: italic;
+        justify-content: center;
+        line-height: 1.4;
+        max-width: 100%;
+        padding: 0.5em;
+        text-decoration: none;
+        text-overflow: ellipsis;
+        width: 100%;
       }
-    }
-  </style>
-</head>
 
-<body class="dark">
+      .link-anchor:active,
+      .link-anchor:focus,
+      .link-anchor:hover {
+        border-color: #00babc;
+        color: #00babc;
+      }
 
-  <header class="global-header">
-    <div class="global-header__container">
-      <h1><a href="#" class="section-toggle"><strong>michael.thompson</strong>@strata</a></h1>
-      <h1><a href="#" class="section-toggle hidden"><strong>mthompson</strong>@personal</a></h1>
-    </div>
-  </header>
+      .link-anchor strong {
+        display: block;
+        font-style: normal;
+        font-size: 0.875rem;
+      }
 
-  <main role="main" class="global-main">
-    <section class="section-block section-block--global">
-      <ul class="link-list">
-        <li class="link-item"><a class="link-anchor" href="https://calendar.google.com/"><strong>Calendar</strong></a>
-        </li>
-        <li class="link-item"><a class="link-anchor" href="https://drive.google.com/"><strong>Drive</strong></a></li>
-        <li class="link-item"><a class="link-anchor" href="https://mail.google.com/"><strong>Mail</strong></a></li>
-        <li class="link-item"><a class="link-anchor" href="https://meet.google.com/"><strong>Meet</strong></a></li>
-      </ul>
-    </section>
+      .help-toggle {
+        display: block;
+        font-size: 0.85rem;
+      }
 
-    <section class="section-block hidden">
-      <ul class="link-list">
-        <li class="link-item"><a class="link-anchor" href="https://boingboing.net/"><strong>Boing Boing</strong></a>
-        </li>
-        <li class="link-item"><a class="link-anchor" href="https://devurls.com/"><strong>DevURLs</strong></a></li>
-        <li class="link-item"><a class="link-anchor" href="https://feedly.com"><strong>Feedly</strong></a></li>
-        <li class="link-item"><a class="link-anchor" href="https://kottke.org/"><strong>Kottke</strong></a></li>
-        <li class="link-item"><a class="link-anchor" href="https://news.ycombinator.com"><strong>Hacker
-              News</strong></a></li>
-        <li class="link-item"><a class="link-anchor" href="https://lobste.rs/"><strong>Lobsters</strong></a></li>
-        <li class="link-item"><a class="link-anchor" href="https://getpocket.com/"><strong>Pocket</strong></a></li>
-        <li class="link-item"><a class="link-anchor" href="https://www.reddit.com"><strong>Reddit</strong></a></li>
-        <li class="link-item"><a class="link-anchor" href="https://www.theverge.com/"><strong>The Verge</strong></a>
-        </li>
-        <li class="link-item"><a class="link-anchor" href="https://tildes.net"><strong>Tildes</strong></a></li>
-        <li class="link-item"><a class="link-anchor" href="https://maizelink.umich.edu/"><strong>UM
-              MaizeLink</strong></a></li>
-        <li class="link-item"><a class="link-anchor" href="https://hcmprod.dsc.umich.edu/services/employee/"><strong>UM
-              Self Service</strong></a></li>
-      </ul>
-    </section>
+      .help-toggle:active .help-toggle:focus,
+      .help-toggle:hover {
+        border-color: #00babc;
+        color: #00babc;
+      }
 
-    <section class="section-block section-block--local">
-      <ul class="link-cols">
-        <li>
-          <span class="link-cols-header local-host">api</span>
-          <a class="link-anchor" href="http://localhost:6810"><span class="local-host"></span><span
-              class="local-port">:6810</span></a>
-          <a class="link-anchor" href="https://srda-stage.strataoncology.com/"><span class="local-port">stage</span></a>
-          <a class="link-anchor" href="https://srda-prod.strataoncology.com/"><span class="local-port">prod</span></a>
-        </li>
-        <li>
-          <span class="link-cols-header local-host">clinops</span>
-          <a class="link-anchor" href="http://localhost:6520"><span class="local-host"></span><span
-              class="local-port">:6520</span></a>
-          <a class="link-anchor" href="https://stage-clinops.strataoncology.com/"><span
-              class="local-port">stage</span></a>
-          <a class="link-anchor" href="https://clinops.strataoncology.com/"><span class="local-port">prod</span></a>
-        </li>
-        <li>
-          <span class="link-cols-header local-host">lab-ui</span>
-          <a class="link-anchor" href="http://localhost:6510"><span class="local-port">:6510</span></a>
-          <a class="link-anchor" href="https://stage.lab.strataoncology.com"><span class="local-port">stage</span></a>
-          <a class="link-anchor" href="https://lab.strataoncology.com"><span class="local-port">prod</span></a>
-        </li>
-        <li>
-          <span class="link-cols-header local-host">portal</span>
-          <a class="link-anchor" href="https://strata-dev.com:6600"><span class="local-port">:6600</span></a>
-          <a class="link-anchor" href="https://portal2.strataoncology.com"><span class="local-port">stage</span></a>
-          <a class="link-anchor" href="https://portal.strataoncology.com"><span class="local-port">prod</span></a>
-        </li>
-      </ul>
-    </section>
+      .hidden {
+        display: none;
+      }
 
-    <section class="section-block">
-      <ul class="link-list">
-        <li class="link-item"><a class="link-anchor"
-            href="https://app.asana.com/0/1200507865494550/board"><strong>Asana</strong></a></li>
-        <li class="link-item"><a class="link-anchor" href="https://americanfunds.com/retire"><strong>American
-              Funds</strong></a></li>
-        <li class="link-item"><a class="link-anchor"
-            href="https://www.chromatic.com/start"><strong>Chromatic</strong></a></li>
-        <li class="link-item"><a class="link-anchor"
-            href="https://app.circleci.com/dashboard"><strong>CircleCI</strong></a></li>
-        <li class="link-item"><a class="link-anchor"
-            href="https://foundation.cleardata.com"><strong>ClearDATA</strong></a></li>
-        <li class="link-item"><a class="link-anchor"
-            href="https://clearwatercompliance.litmos.com"><strong>Clearwater</strong></a></li>
-        <li class="link-item"><a class="link-anchor"
-            href="https://us2.concursolutions.com/home.asp"><strong>Concur</strong></a></li>
-        <li class="link-item"><a class="link-anchor"
-            href="https://strataoncology.atlassian.net/wiki/home"><strong>Confluence</strong></a></li>
-        <li class="link-item"><a class="link-anchor"
-            href="https://cwa-cecpower.screenconnect.com/"><strong>ConnectWise</strong></a></li>
-        <li class="link-item"><a class="link-anchor" href="https://app.datadoghq.com/"><strong>DataDog</strong></a></li>
-        <li class="link-item"><a class="link-anchor" href="https://www.employeenavigator.com"><strong>Employee
-              Navigator</strong></a></li>
-        <!-- <li class="link-item"><a class="link-anchor" href="https://online.kantola.com/"><strong>Kantola Training</strong></a></li> -->
-        <li class="link-item"><a class="link-anchor"
-            href="https://manage.fury.io/dashboard/strata"><strong>Gemfury</strong></a></li>
-        <li class="link-item"><a class="link-anchor"
-            href="https://github.com/StrataOncology/"><strong>GitHub</strong></a></li>
-        <li class="link-item"><a class="link-anchor" href="https://strata.greenlight.guru"><strong>Greenlight
-              Guru</strong></a></li>
-        <li class="link-item"><a class="link-anchor"
-            href="https://handbook.strata.engineering"><strong>Handbook</strong></a></li>
-        <li class="link-item"><a class="link-anchor"
-            href="https://strataoncology.atlassian.net"><strong>Jira</strong></a></li>
-        <li class="link-item"><a class="link-anchor"
-            href="https://strataoncology.app.opsgenie.com"><strong>OpsGenie</strong></a></li>
-        <!--<li class="link-item"><a class="link-anchor" href="https://strataoncology.pagerduty.com"><strong>PagerDuty</strong></a></li>-->
-        <li class="link-item"><a class="link-anchor" href="https://myapps.paychex.com"><strong>Paychex</strong></a></li>
-        <li class="link-item"><a class="link-anchor" href="https://app.pluralsight.com"><strong>Pluralsight</strong></a>
-        </li>
-        <!--<li class="link-item"><a class="link-anchor" href="https://login.replicon.com/"><strong>Replicon / Polaris</strong></a></li>-->
-        <li class="link-item"><a class="link-anchor"
-            href="https://strataoncology.my.salesforce.com/"><strong>SalesForce</strong></a></li>
-        <li class="link-item"><a class="link-anchor" href="https://sentry.io/auth/login/"><strong>Sentry</strong></a>
-        </li>
-        <!--<li class="link-item"><a class="link-anchor" href="https://my.splashtop.com/"><strong>Splashtop</strong></a></li>-->
-        <li class="link-item"><a class="link-anchor" href="https://cp.sync.com/"><strong>Sync</strong></a></li>
-        <li class="link-item"><a class="link-anchor" href="https://lms.traliant.com/"><strong>Traliant</strong></a></li>
-        <!-- <li class="link-item"><a class="link-anchor" href="https://trello.com/strataoncology"><strong>Trello</strong></a></li> -->
-        <li class="link-item"><a class="link-anchor" href="https://portal.vegacloud.io/"><strong>Vega</strong></a></li>
-        <li class="link-item"><a class="link-anchor"
-            href="https://strataoncologycom.workplace.com"><strong>Workplace</strong></a></li>
-        <!-- <li class="link-item"><a class="link-anchor" href="https://app.zeplin.io/"><strong>Zeplin</strong></a></li> -->
-      </ul>
-    </section>
-  </main>
+      .section-block--global .link-item {
+        min-height: 0;
+      }
 
-  <footer class="global-footer">
-    <div class="global-footer__container">
-    </div>
-  </footer>
+      .section-block--global .link-item a strong {
+        font-size: 0.85rem;
+        font-weight: normal;
+      }
 
-  <script type="text/javascript">
-    // Toggle personal/work section visibility
-    document.querySelectorAll('.section-toggle').forEach(toggle => {
+      .section-block--local .link-item {
+        min-height: 0;
+      }
 
-      toggle.addEventListener('click', evt => {
-        document.querySelectorAll('.section-block').forEach(section => {
-          if (!section.classList.contains('section-block--global')) {
-            section.classList.toggle('hidden');
-          }
-        })
+      .section-block--local .link-anchor {
+        align-content: center;
+        align-items: baseline;
+        flex-direction: row;
+        font-style: normal;
+      }
 
-        document.querySelectorAll('.section-toggle').forEach(title => {
-          title.classList.toggle('hidden');
-        })
+      .local-host {
+        font-weight: bold;
+      }
 
-        evt.preventDefault();
+      .local-port {
+        font-style: normal;
+        padding-left: 0.125em;
+        opacity: 0.625;
+      }
+
+      .link-cols {
+        align-content: stretch;
+        align-items: stretch;
+        display: flex;
+        flex-flow: row nowrap;
+        gap: 1em;
+        justify-content: center;
+        width: 100%;
+      }
+
+      .link-cols > li {
+        display: grid;
+        gap: 0.5em;
+        grid-template-columns: repeat(0.5fr);
+        width: 100%;
+      }
+
+      .link-cols > li > *:nth-child(1),
+      .link-cols > li > *:nth-child(2) {
+        grid-column: 1 / span 2;
+      }
+
+      .link-cols-header {
+        flex: 1 1 auto;
+        flex-flow: column nowrap;
+        gap: 0.5em;
+      }
+
+      .link-cols-header {
+        flex-flow: column wrap;
+        font-size: 0.825em;
+        text-align: center;
+      }
+
+      @media (min-width: 576px) {
+        .link-list {
+          grid-template-columns: repeat(4, 1fr);
+        }
+
+        .link-item {
+          min-height: 5em;
+        }
+
+        /* TOOD: this doesn't actually work this way */
+        .section-block--global .link-list,
+        .section-block--local .link-list {
+          grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+        }
+      }
+    </style>
+  </head>
+
+  <body class="dark">
+    <header class="global-header">
+      <div class="global-header__container">
+        <h1>
+          <a href="#" class="section-toggle"
+            ><strong>michael.thompson</strong>@strata</a
+          >
+        </h1>
+        <h1>
+          <a href="#" class="section-toggle hidden"
+            ><strong>mthompson</strong>@personal</a
+          >
+        </h1>
+      </div>
+    </header>
+
+    <main role="main" class="global-main">
+      <section class="section-block section-block--global">
+        <ul class="link-list">
+          <li class="link-item">
+            <a class="link-anchor" href="https://calendar.google.com/"
+              ><strong>Calendar</strong></a
+            >
+          </li>
+          <li class="link-item">
+            <a class="link-anchor" href="https://drive.google.com/"
+              ><strong>Drive</strong></a
+            >
+          </li>
+          <li class="link-item">
+            <a class="link-anchor" href="https://mail.google.com/"
+              ><strong>Mail</strong></a
+            >
+          </li>
+          <li class="link-item">
+            <a class="link-anchor" href="https://meet.google.com/"
+              ><strong>Meet</strong></a
+            >
+          </li>
+        </ul>
+      </section>
+
+      <section class="section-block hidden">
+        <ul class="link-list">
+          <li class="link-item">
+            <a class="link-anchor" href="https://boingboing.net/"
+              ><strong>Boing Boing</strong></a
+            >
+          </li>
+          <li class="link-item">
+            <a class="link-anchor" href="https://devurls.com/"
+              ><strong>DevURLs</strong></a
+            >
+          </li>
+          <li class="link-item">
+            <a class="link-anchor" href="https://feedly.com"
+              ><strong>Feedly</strong></a
+            >
+          </li>
+          <li class="link-item">
+            <a class="link-anchor" href="https://kottke.org/"
+              ><strong>Kottke</strong></a
+            >
+          </li>
+          <li class="link-item">
+            <a class="link-anchor" href="https://news.ycombinator.com"
+              ><strong>Hacker News</strong></a
+            >
+          </li>
+          <li class="link-item">
+            <a class="link-anchor" href="https://lobste.rs/"
+              ><strong>Lobsters</strong></a
+            >
+          </li>
+          <li class="link-item">
+            <a class="link-anchor" href="https://getpocket.com/"
+              ><strong>Pocket</strong></a
+            >
+          </li>
+          <li class="link-item">
+            <a class="link-anchor" href="https://www.reddit.com"
+              ><strong>Reddit</strong></a
+            >
+          </li>
+          <li class="link-item">
+            <a class="link-anchor" href="https://www.theverge.com/"
+              ><strong>The Verge</strong></a
+            >
+          </li>
+          <li class="link-item">
+            <a class="link-anchor" href="https://tildes.net"
+              ><strong>Tildes</strong></a
+            >
+          </li>
+          <li class="link-item">
+            <a class="link-anchor" href="https://maizelink.umich.edu/"
+              ><strong>UM MaizeLink</strong></a
+            >
+          </li>
+          <li class="link-item">
+            <a
+              class="link-anchor"
+              href="https://hcmprod.dsc.umich.edu/services/employee/"
+              ><strong>UM Self Service</strong></a
+            >
+          </li>
+        </ul>
+      </section>
+
+      <section class="section-block section-block--local">
+        <ul class="link-cols">
+          <li>
+            <span class="link-cols-header local-host">api</span>
+            <a class="link-anchor" href="http://localhost:6810"
+              ><span class="local-host"></span
+              ><span class="local-port">:6810</span></a
+            >
+            <a class="link-anchor" href="https://srda-stage.strataoncology.com/"
+              ><span class="local-port">stage</span></a
+            >
+            <a class="link-anchor" href="https://srda-prod.strataoncology.com/"
+              ><span class="local-port">prod</span></a
+            >
+          </li>
+          <li>
+            <span class="link-cols-header local-host">clinops</span>
+            <a class="link-anchor" href="http://localhost:6520"
+              ><span class="local-host"></span
+              ><span class="local-port">:6520</span></a
+            >
+            <a
+              class="link-anchor"
+              href="https://stage-clinops.strataoncology.com/"
+              ><span class="local-port">stage</span></a
+            >
+            <a class="link-anchor" href="https://clinops.strataoncology.com/"
+              ><span class="local-port">prod</span></a
+            >
+          </li>
+          <li>
+            <span class="link-cols-header local-host">lab-ui</span>
+            <a class="link-anchor" href="http://localhost:6510"
+              ><span class="local-port">:6510</span></a
+            >
+            <a class="link-anchor" href="https://stage.lab.strataoncology.com"
+              ><span class="local-port">stage</span></a
+            >
+            <a class="link-anchor" href="https://lab.strataoncology.com"
+              ><span class="local-port">prod</span></a
+            >
+          </li>
+          <li>
+            <span class="link-cols-header local-host">path review</span>
+            <a class="link-anchor" href="http://localhost:6533"
+              ><span class="local-port">:6532</span></a
+            >
+            <a class="link-anchor" href="https://staging.strataoncology.com"
+              ><span class="local-port">stage</span></a
+            >
+            <a class="link-anchor" href="https://pathology.strataoncology.com"
+              ><span class="local-port">prod</span></a
+            >
+          </li>
+          <li>
+            <span class="link-cols-header local-host">portal</span>
+            <a class="link-anchor" href="https://strata-dev.com:6600"
+              ><span class="local-port">:6600</span></a
+            >
+            <a class="link-anchor" href="https://portal2.strataoncology.com"
+              ><span class="local-port">stage</span></a
+            >
+            <a class="link-anchor" href="https://portal.strataoncology.com"
+              ><span class="local-port">prod</span></a
+            >
+          </li>
+        </ul>
+      </section>
+
+      <section class="section-block">
+        <ul class="link-list">
+          <li class="link-item">
+            <a
+              class="link-anchor"
+              href="https://app.asana.com/0/1200507865494550/board"
+              ><strong>Asana</strong></a
+            >
+          </li>
+          <li class="link-item">
+            <a class="link-anchor" href="https://americanfunds.com/retire"
+              ><strong>American Funds</strong></a
+            >
+          </li>
+          <li class="link-item">
+            <a class="link-anchor" href="https://aws.amazon.com/"
+              ><strong>AWS</strong></a
+            >
+          </li>
+          <li class="link-item">
+            <a class="link-anchor" href="https://www.chromatic.com/start"
+              ><strong>Chromatic</strong></a
+            >
+          </li>
+          <li class="link-item">
+            <a class="link-anchor" href="https://app.circleci.com/dashboard"
+              ><strong>CircleCI</strong></a
+            >
+          </li>
+          <li class="link-item">
+            <a class="link-anchor" href="https://foundation.cleardata.com"
+              ><strong>ClearDATA</strong></a
+            >
+          </li>
+          <li class="link-item">
+            <a
+              class="link-anchor"
+              href="https://clearwatercompliance.litmos.com"
+              ><strong>Clearwater</strong></a
+            >
+          </li>
+          <li class="link-item">
+            <a
+              class="link-anchor"
+              href="https://us2.concursolutions.com/home.asp"
+              ><strong>Concur</strong></a
+            >
+          </li>
+          <li class="link-item">
+            <a
+              class="link-anchor"
+              href="https://strataoncology.atlassian.net/wiki/home"
+              ><strong>Confluence</strong></a
+            >
+          </li>
+          <li class="link-item">
+            <a
+              class="link-anchor"
+              href="https://cwa-cecpower.screenconnect.com/"
+              ><strong>ConnectWise</strong></a
+            >
+          </li>
+          <li class="link-item">
+            <a class="link-anchor" href="https://app.datadoghq.com/"
+              ><strong>DataDog</strong></a
+            >
+          </li>
+          <li class="link-item">
+            <a class="link-anchor" href="https://www.employeenavigator.com"
+              ><strong>Employee Navigator</strong></a
+            >
+          </li>
+          <!-- <li class="link-item"><a class="link-anchor" href="https://online.kantola.com/"><strong>Kantola Training</strong></a></li> -->
+          <li class="link-item">
+            <a
+              class="link-anchor"
+              href="https://manage.fury.io/dashboard/strata"
+              ><strong>Gemfury</strong></a
+            >
+          </li>
+          <li class="link-item">
+            <a class="link-anchor" href="https://github.com/StrataOncology/"
+              ><strong>GitHub</strong></a
+            >
+          </li>
+          <li class="link-item">
+            <a class="link-anchor" href="https://strata.greenlight.guru"
+              ><strong>Greenlight Guru</strong></a
+            >
+          </li>
+          <li class="link-item">
+            <a class="link-anchor" href="https://handbook.strata.engineering"
+              ><strong>Handbook</strong></a
+            >
+          </li>
+          <li class="link-item">
+            <a class="link-anchor" href="https://strataoncology.atlassian.net"
+              ><strong>Jira</strong></a
+            >
+          </li>
+          <li class="link-item">
+            <a
+              class="link-anchor"
+              href="https://strataoncology.app.opsgenie.com"
+              ><strong>OpsGenie</strong></a
+            >
+          </li>
+          <!--<li class="link-item"><a class="link-anchor" href="https://strataoncology.pagerduty.com"><strong>PagerDuty</strong></a></li>-->
+          <li class="link-item">
+            <a class="link-anchor" href="https://myapps.paychex.com"
+              ><strong>Paychex</strong></a
+            >
+          </li>
+          <li class="link-item">
+            <a class="link-anchor" href="https://app.pluralsight.com"
+              ><strong>Pluralsight</strong></a
+            >
+          </li>
+          <!--<li class="link-item"><a class="link-anchor" href="https://login.replicon.com/"><strong>Replicon / Polaris</strong></a></li>-->
+          <li class="link-item">
+            <a
+              class="link-anchor"
+              href="https://strataoncology.my.salesforce.com/"
+              ><strong>SalesForce</strong></a
+            >
+          </li>
+          <li class="link-item">
+            <a class="link-anchor" href="https://sentry.io/auth/login/"
+              ><strong>Sentry</strong></a
+            >
+          </li>
+          <li class="link-item">
+            <a class="link-anchor" href="https://status-status.vercel.app/"
+              ><strong>Status</strong>Status</a
+            >
+          </li>
+          <!--<li class="link-item"><a class="link-anchor" href="https://my.splashtop.com/"><strong>Splashtop</strong></a></li>-->
+          <li class="link-item">
+            <a class="link-anchor" href="https://cp.sync.com/"
+              ><strong>Sync</strong></a
+            >
+          </li>
+          <li class="link-item">
+            <a class="link-anchor" href="https://lms.traliant.com/"
+              ><strong>Traliant</strong></a
+            >
+          </li>
+          <!-- <li class="link-item"><a class="link-anchor" href="https://trello.com/strataoncology"><strong>Trello</strong></a></li> -->
+          <li class="link-item">
+            <a class="link-anchor" href="https://portal.vegacloud.io/"
+              ><strong>Vega</strong></a
+            >
+          </li>
+          <li class="link-item">
+            <a
+              class="link-anchor"
+              href="https://strataoncologycom.workplace.com"
+              ><strong>Workplace</strong></a
+            >
+          </li>
+          <!-- <li class="link-item"><a class="link-anchor" href="https://app.zeplin.io/"><strong>Zeplin</strong></a></li> -->
+        </ul>
+      </section>
+    </main>
+
+    <footer class="global-footer">
+      <div class="global-footer__container"></div>
+    </footer>
+
+    <script type="text/javascript">
+      // Toggle personal/work section visibility
+      document.querySelectorAll(".section-toggle").forEach((toggle) => {
+        toggle.addEventListener("click", (evt) => {
+          document.querySelectorAll(".section-block").forEach((section) => {
+            if (!section.classList.contains("section-block--global")) {
+              section.classList.toggle("hidden");
+            }
+          });
+
+          document.querySelectorAll(".section-toggle").forEach((title) => {
+            title.classList.toggle("hidden");
+          });
+
+          evt.preventDefault();
+        });
       });
-    });
-
 
       // Toggle help section visibility
-    /*
+      /*
     document.querySelector('.help-toggle').addEventListener('click', evt => {
       document.querySelector('.help-content').classList.toggle('hidden');
       evt.preventDefault();
     });
     */
-
-  </script>
-
-</body>
-
+    </script>
+  </body>
 </html>
