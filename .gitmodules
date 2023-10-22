@@ -13,3 +13,6 @@
 [submodule "dotfiles/.config/zsh/oh-my-zsh--custom/themes/powerlevel10k"]
 	path = dotfiles/.config/zsh/oh-my-zsh--custom/themes/powerlevel10k
 	url = https://github.com/romkatv/powerlevel10k.git
+[submodule "dotfiles/.config/zsh/oh-my-zsh--custom/plugins/zsh-vi-mode"]
+	path = dotfiles/.config/zsh/oh-my-zsh--custom/plugins/zsh-vi-mode
+	url = git@github.com:jeffreytse/zsh-vi-mode.git
