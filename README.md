@@ -56,7 +56,7 @@ make setup
     - Edit `/usr/local/etc/nginx/nginx.conf` and change default listen to 65432 (to avoid dev conflicts)
     - Symlink start page via `ln -s $XDG_CONFIG_HOME/strata/startpage.html /usr/local/var/www/startpage.html`
     - Open <http://localhost:65432/startpage.html> and verify it loads (adjust above if not)
-    - Upgrade browser settings to use <http://localhost:65432/startpage.html> for windows/tabs.
+    - Update browser settings to use <http://localhost:65432/startpage.html> for windows/tabs.
 
 # Personalization
 
