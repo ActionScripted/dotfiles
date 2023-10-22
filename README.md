@@ -50,12 +50,21 @@ make setup
   - `touch ~/.config/shell/hosts/strata.secrets.sh`
   - Put your sensitive stuff here like API keys, etc.
   - Update the corresponding shell files to source these as needed.
+- Web Browser:
+  - Setup Nginx locally and host your start page and set your browser to use it for new windows and tabs.
+    - `brew install nginx`
+    - Edit `/usr/local/etc/nginx/nginx.conf` and change default listen to 65432 (to avoid dev conflicts)
+    - Symlink start page via `ln -s $XDG_CONFIG_HOME/strata/startpage.html /usr/local/var/www/startpage.html`
+    - Open <http://localhost:65432/startpage.html> and verify it loads (adjust above if not)
+    - Upgrade browser settings to use <http://localhost:65432/startpage.html> for windows/tabs.
 
 # Personalization
 
-Once you've gotten things setup you can trash `.git` and create/init your own repo. This should be added to your VCS remote in a private repo and never be public. It's really easy to leak sensitive stuff through shell files, wiki docs, etc. (But you're using `*.secrets.sh`, right? Right?)
+Once you've gotten things setup you can trash `.git` and create/init your own repo. This should be added to your VCS remote in a private repo and never be public. It's really easy to leak sensitive stuff through shell files, wiki docs, etc. You can always pull down changes from this repo into your private repo.
 
-You can always pull down changes from this repo into your private repo, but other than Neovim it doesn't change much.
+Things you might want to customize:
+
+- Remove the Strata bits, because you don't work there. Instead add your own company shell, start page etc.
 
 # Updating
 
