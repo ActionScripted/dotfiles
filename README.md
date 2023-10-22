@@ -31,8 +31,10 @@ cd ~/.dotfiles
 make setup
 ```
 
-> [!INFO]
-> These are highly recommended after running the automatic setup.
+## Optional Setup
+
+> [!NOTE]
+> These are highly recommended after running the automatic setup but technically optional.
 
 - Fonts:
   - `brew tap caskroom/fonts`
