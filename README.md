@@ -23,7 +23,7 @@ Philosophy:
 
 ```bash
 # Clone to ~/.dotfiles
-git clone --recurse-submodules git@github.com:ActionScripted/dotfiles-private.git ~/.dotfiles
+git clone --recurse-submodules git@github.com:ActionScripted/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 
 # Run setup
