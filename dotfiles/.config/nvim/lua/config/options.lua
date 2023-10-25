@@ -33,7 +33,7 @@ vim.opt.comments:append("fb:*") -- 3 (nosort)
 vim.opt.commentstring = " # %s"
 vim.opt.encoding = "UTF-8"
 vim.opt.expandtab = true
-vim.opt.foldlevel = 2
+vim.opt.foldlevel = 3
 vim.opt.foldmethod = "indent"
 vim.opt.formatoptions:remove("t")
 vim.opt.shiftround = true
