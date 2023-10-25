@@ -11,6 +11,7 @@ export VISUAL=nvim
 export XDG_CACHE_HOME=$HOME/.cache
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_DATA_HOME=$HOME/.local/share
+export XDG_STATE_HOME=$HOME/.local/state
 
 # Ansible
 export ANSIBLE_NOCOWS=1
@@ -23,8 +24,8 @@ alias dadjoke='curl -s https://fatherhood.gov/jsonapi/node/dad_jokes | jq ".data
 
 # dircolors
 DIRCOLORS_CMD=''
-if command -v dircolors  >/dev/null; then  DIRCOLORS_CMD='dircolors';  fi
-if command -v gdircolors >/dev/null; then  DIRCOLORS_CMD='gdircolors'; fi
+if command -v dircolors >/dev/null; then DIRCOLORS_CMD='dircolors'; fi
+if command -v gdircolors >/dev/null; then DIRCOLORS_CMD='gdircolors'; fi
 [[ ! -z "$DIRCOLORS_CMD" ]] && eval $($DIRCOLORS_CMD ~/.config/shell/dircolors/dircolors.solarized-256-dark)
 
 # ESLint
@@ -52,7 +53,7 @@ export INPUTRC=$XDG_CONFIG_HOME/readline/inputrc
 # NOTE: you may need to install ruby-build manually
 export RBENV_ROOT=$XDG_DATA_HOME/rbenv
 export PATH=$XDG_DATA_HOME/rbenv/bin:$PATH
-if command -v rbenv >/dev/null; then  eval "$(rbenv init -)"; fi
+if command -v rbenv >/dev/null; then eval "$(rbenv init -)"; fi
 
 # Ruby and Gems
 #export GEM_HOME="$XDG_DATA_HOME"/gem
@@ -71,7 +72,7 @@ export TASKRC=$XDG_CONFIG_HOME/task/taskrc
 export TIMEWARRIORDB=$XDG_DATA_HOME/timewarrior
 
 # Yarn
-if command -v yarn >/dev/null; then  export PATH="$(yarn global bin):$PATH"; fi
+if command -v yarn >/dev/null; then export PATH="$(yarn global bin):$PATH"; fi
 
 # Commands
 alias dc="docker-compose"
@@ -311,8 +312,8 @@ function weird() {
 
 # Host-specific Profiles
 case $HOSTNAME in
-    EngineeringsMBP*) source "$XDG_CONFIG_HOME"/shell/hosts/strata.sh   ;;
-    SOI-LP50*)        source "$XDG_CONFIG_HOME"/shell/hosts/strata.sh   ;;
-    starlabs*)        source "$XDG_CONFIG_HOME"/shell/hosts/personal.sh ;;
-    tho-lap-dolly*)   source "$XDG_CONFIG_HOME"/shell/hosts/personal.sh ;;
+    EngineeringsMBP*) source "$XDG_CONFIG_HOME"/shell/hosts/strata.sh ;;
+    SOI-LP50*) source "$XDG_CONFIG_HOME"/shell/hosts/strata.sh ;;
+    starlabs*) source "$XDG_CONFIG_HOME"/shell/hosts/personal.sh ;;
+    tho-lap-dolly*) source "$XDG_CONFIG_HOME"/shell/hosts/personal.sh ;;
 esac

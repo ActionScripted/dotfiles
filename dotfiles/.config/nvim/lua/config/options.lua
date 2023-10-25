@@ -5,10 +5,12 @@ vim.keymap.set("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "LazyVim (Plugins)" }
 -- Behavior
 vim.opt.autowrite = false
 vim.opt.clipboard = ""
+vim.opt.confirm = false
 vim.opt.confirm = true
 vim.opt.mouse = "a"
 vim.opt.shortmess:append("rIs") -- "[RO]", (no) intro, (no) search
 vim.opt.swapfile = false
+vim.opt.undofile = true
 
 -- Appearance
 vim.opt.equalalways = false
