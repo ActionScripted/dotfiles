@@ -51,7 +51,7 @@ return {
   --{ "which-key.nvim", enabled = false },
 
   -- Enabled (but waffling on want)
-  { "gitsigns.nvim", enabled = false },
+  --{ "gitsigns.nvim", enabled = false },
 
   -- Disabled
   { "catppuccin", enabled = false },
