@@ -48,14 +48,14 @@ make setup
     - Edit at will!
 - Secrets:
   - `touch ~/.config/shell/hosts/personal.secrets.sh`
-  - `touch ~/.config/shell/hosts/strata.secrets.sh`
+  - `touch ~/.config/shell/hosts/somecompany.secrets.sh`
   - Put your sensitive stuff here like API keys, etc.
   - Update the corresponding shell files to source these as needed.
 - Web Browser:
   - Setup Nginx locally and host your start page and set your browser to use it for new windows and tabs.
     - `brew install nginx`
     - Edit `/usr/local/etc/nginx/nginx.conf` and change default listen to 65432 (to avoid dev conflicts)
-    - Symlink start page via `ln -s $XDG_CONFIG_HOME/strata/startpage.html /usr/local/var/www/startpage.html`
+    - Symlink start page via `ln -s ~/.local/srv/startpage.html /usr/local/var/www/startpage.html`
     - Open <http://localhost:65432/startpage.html> and verify it loads (adjust above if not)
     - Update browser settings to use <http://localhost:65432/startpage.html> for windows/tabs.
 
@@ -65,7 +65,7 @@ Once you've gotten things setup you can trash `.git` and create/init your own re
 
 Things you might want to customize:
 
-- Remove the Strata bits, because you don't work there. Instead add your own company shell, start page etc.
+- Remove the "somecompany" bits, because you don't work there. Instead add your own company shell, start page etc.
 
 # Updating
 
