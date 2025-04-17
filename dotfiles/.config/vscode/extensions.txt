@@ -4,6 +4,7 @@ christian-kohler.npm-intellisense
 christian-kohler.path-intellisense
 davidanson.vscode-markdownlint
 dbaeumer.vscode-eslint
+docker.docker
 dunstontc.viml
 eamodio.gitlens
 enkia.tokyo-night
@@ -19,6 +20,10 @@ ms-dotnettools.dotnet-interactive-vscode
 ms-dotnettools.vscode-dotnet-pack
 ms-dotnettools.vscode-dotnet-runtime
 ms-dotnettools.vscodeintellicode-csharp
+ms-mssql.data-workspace-vscode
+ms-mssql.mssql
+ms-mssql.sql-bindings-vscode
+ms-mssql.sql-database-projects-vscode
 ms-python.debugpy
 ms-python.isort
 ms-python.python
