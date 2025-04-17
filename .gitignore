@@ -14,6 +14,7 @@ dotfiles/.config/include/**/*.secrets.sh
 dotfiles/.config/merit/*.yaml
 dotfiles/.config/merit/*.yml
 dotfiles/.config/nvim*/plugged
+dotfiles/.config/nvim/lua/plugins/local.lua
 dotfiles/.config/shell/**/*.secrets.sh
 dotfiles/.config/strata/*
 dotfiles/.config/tmux/plugins
@@ -39,6 +40,7 @@ tnsnames.ora
 !dotfiles/.config/bugwarrior
 !dotfiles/.config/composer
 !dotfiles/.config/eslint
+!dotfiles/.config/eza
 !dotfiles/.config/flake8
 !dotfiles/.config/git
 !dotfiles/.config/include

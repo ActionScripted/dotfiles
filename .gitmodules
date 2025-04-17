@@ -16,3 +16,6 @@
 [submodule "dotfiles/.config/zsh/oh-my-zsh--custom/plugins/zsh-vi-mode"]
 	path = dotfiles/.config/zsh/oh-my-zsh--custom/plugins/zsh-vi-mode
 	url = git@github.com:jeffreytse/zsh-vi-mode.git
+[submodule "dotfiles/.config/eza/themes"]
+	path = dotfiles/.config/eza/themes
+	url = https://github.com/eza-community/eza-themes.git

@@ -2,7 +2,7 @@
 
 Automatically symlink (and backup) configuration files.
 
-# Overview
+## Overview
 
 Files:
 
@@ -18,14 +18,14 @@ Philosophy:
 - Secrets are intentionally separate/safe from any version control.
 - Use XDG Base Directory specifications when possible.
 
-# Setup
+## Setup
 
 > [!IMPORTANT]
 > Setup backs up existing files and symlinks to `~/.dotfiles.backups`. It is non-destructive, every run.
 
 ```bash
 # Clone to ~/.dotfiles
-git clone --recurse-submodules git@github.com:ActionScripted/dotfiles.git ~/.dotfiles
+git clone --recurse-submodules git@github.com:ActionScripted/dotfiles-private.git ~/.dotfiles
 cd ~/.dotfiles
 
 # Run setup
@@ -54,24 +54,24 @@ make setup
 - Web Browser:
   - Setup Nginx locally and host your start page and set your browser to use it for new windows and tabs.
     - `brew install nginx`
-    - Edit `/usr/local/etc/nginx/nginx.conf` and change default listen to 65432 (to avoid dev conflicts)
-    - Symlink start page via `ln -s ~/.local/srv/startpage.html /usr/local/var/www/startpage.html`
+    - Edit `/usr/local/etc/nginx/nginx.conf` and change default listen to `127.0.0.1:65432` (to avoid dev conflicts)
+    - Symlink start page via `ln -s ~/.local/srv/startpage-somecompany.html /usr/local/var/www/startpage.html`
     - Open <http://localhost:65432/startpage.html> and verify it loads (adjust above if not)
     - Update browser settings to use <http://localhost:65432/startpage.html> for windows/tabs.
 
-# Personalization
+## Personalization
 
 Once you've gotten things setup you can trash `.git` and create/init your own repo. This should be added to your VCS remote in a private repo and never be public. It's really easy to leak sensitive stuff through shell files, wiki docs, etc. You can always pull down changes from this repo into your private repo.
 
 Things you might want to customize:
 
-- Remove the "somecompany" bits, because you don't work there. Instead add your own company shell, start page etc.
+- Remove the `somecompany` bits, because you don't work there. Instead add your own company shell, start page etc.
 
-# Updating
+## Updating
 
 Update core and dependencies:
 
-- `update_dotfiles` or `cd ~/.dotfiles && make update`
+- `cd ~/.dotfiles && make update`
 
 Add/edit files:
 
@@ -79,7 +79,7 @@ Add/edit files:
 - Manually symlink or run `setup.sh`
 - `git commit && git push`
 
-# Nvim and Plugins
+## Nvim and Plugins
 
 Init, upgrade/update, clean:
 
@@ -87,7 +87,7 @@ Init, upgrade/update, clean:
 :Lazy
 ```
 
-# Tmux and Plugins
+## Tmux and Plugins
 
 Init:
 
@@ -107,7 +107,7 @@ Clean (remove/uninstall unlisted):
 <prefix> + alt + u
 ```
 
-# VS Code
+## VS Code
 
 Setup:
 
