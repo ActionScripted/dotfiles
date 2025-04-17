@@ -52,9 +52,12 @@ function prompt_vpn_status() {
     typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
         # =========================[ Line #1 ]=========================
         #os_icon                 # os identifier
-        vpn_status
+        #vpn_status
+        vpn_ip                # virtual private network indicator
+        virtualenv
         context                 # user@hostname
         dir                     # current directory
+        #anaconda
         aws
         vcs                     # git status
         status
@@ -118,7 +121,6 @@ function prompt_vpn_status() {
         # midnight_commander      # midnight commander shell (https://midnight-commander.org/)
         # nix_shell               # nix shell (https://nixos.org/nixos/nix-pills/developing-with-nix-shell.html)
         # vi_mode               # vi mode (you don't need this if you've enabled prompt_char)
-        # vpn_ip                # virtual private network indicator
         # load                  # CPU load
         # disk_usage            # disk usage
         # ram                   # free RAM
@@ -434,7 +436,7 @@ function prompt_vpn_status() {
             # If local branch name is at most 32 characters long, show it in full.
             # Otherwise show the first 12 … the last 12.
             # Tip: To always show local branch name in full without truncation, delete the next line.
-            (( $#branch > 32 )) && branch[13,-13]="…"  # <-- this line
+            (( $#branch > 36 )) && branch[29,-1]="…"  # <-- this line
             res+="${clean}${(g::)POWERLEVEL9K_VCS_BRANCH_ICON}${branch//\%/%%}"
         fi
 
@@ -447,7 +449,7 @@ function prompt_vpn_status() {
                 # If tag name is at most 32 characters long, show it in full.
                 # Otherwise show the first 12 … the last 12.
                 # Tip: To always show tag name in full without truncation, delete the next line.
-                (( $#tag > 32 )) && tag[13,-13]="…"  # <-- this line
+                (( $#tag > 36 )) && tag[29,-1]="…"  # <-- this line
                 res+="${meta}#${clean}${tag//\%/%%}"
             fi
 
@@ -990,8 +992,10 @@ function prompt_vpn_status() {
 
         ###[ virtualenv: python virtual environment (https://docs.python.org/3/library/venv.html) ]###
         # Python virtual environment color.
-        typeset -g POWERLEVEL9K_VIRTUALENV_FOREGROUND=0
-        typeset -g POWERLEVEL9K_VIRTUALENV_BACKGROUND=4
+        typeset -g POWERLEVEL9K_VIRTUALENV_FOREGROUND=008
+        typeset -g POWERLEVEL9K_VIRTUALENV_BACKGROUND=005
+        typeset -g POWERLEVEL9K_VIRTUALENV_VISUAL_IDENTIFIER_EXPANSION=''
+        typeset -g POWERLEVEL9K_VIRTUALENV_CONTENT_EXPANSION='venv'
         # Don't show Python version next to the virtual environment name.
         typeset -g POWERLEVEL9K_VIRTUALENV_SHOW_PYTHON_VERSION=false
         # If set to "false", won't show virtualenv if pyenv is already shown.
@@ -1626,11 +1630,11 @@ function prompt_vpn_status() {
 
         ########################[ vpn_ip: virtual private network indicator ]#########################
         # VPN IP color.
-        typeset -g POWERLEVEL9K_VPN_IP_FOREGROUND=0
-        typeset -g POWERLEVEL9K_VPN_IP_BACKGROUND=6
+        typeset -g POWERLEVEL9K_VPN_IP_FOREGROUND=008
+        typeset -g POWERLEVEL9K_VPN_IP_BACKGROUND=002
         # When on VPN, show just an icon without the IP address.
         # Tip: To display the private IP address when on VPN, remove the next line.
-        typeset -g POWERLEVEL9K_VPN_IP_CONTENT_EXPANSION=
+        typeset -g POWERLEVEL9K_VPN_IP_CONTENT_EXPANSION=''
         # Regular expression for the VPN network interface. Run `ifconfig` or `ip -4 a show` while on VPN
         # to see the name of the interface.
         typeset -g POWERLEVEL9K_VPN_IP_INTERFACE='(gpd|wg|(.*tun)|tailscale)[0-9]*|(zt.*)'

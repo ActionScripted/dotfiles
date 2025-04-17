@@ -10,9 +10,11 @@ return {
   --{ "cmp-nvim-lsp", enabled = false },
   --{ "cmp-path", enabled = false },
   --{ "cmp_luasnip", enabled = false },
+  --{ "conform.nvim", enabled = false },
   --{ "copilot-cmp", enabled = false },
   --{ "copilot.lua", enabled = false },
   --{ "dressing.nvim", enabled = false },
+  --{ "flash.nvim", enabled = false },
   --{ "friendly-snippets", enabled = false },
   --{ "lazy.nvim", enabled = false },
   --{ "lazygit.nvim", enabled = false },
@@ -32,6 +34,7 @@ return {
   --{ "nui.nvim", enabled = false },
   --{ "nvim-cmp", enabled = false },
   --{ "nvim-colorizer.lua", enabled = false },
+  --{ "nvim-lint", enabled = false },
   --{ "nvim-lspconfig", enabled = false },
   --{ "nvim-notify", enabled = false },
   --{ "nvim-treesitter", enabled = false },
@@ -50,16 +53,10 @@ return {
   --{ "vim-startuptime", enabled = false },
   --{ "which-key.nvim", enabled = false },
 
-  -- Enabled (but waffling on want)
+  -- ENABLED (but waffling on want)
   --{ "gitsigns.nvim", enabled = false },
 
-  -- Disabled
-  { "catppuccin", enabled = false },
-  { "conform.nvim", enabled = false },
-  { "flash.nvim", enabled = false },
-  { "indent-blankline.nvim", enabled = false },
-  { "mini.ai", enabled = false },
-  { "nvim-lint", enabled = false },
-  { "nvim-spectre", enabled = false },
-  { "persistence.nvim", enabled = false },
+  -- DISABLED
+  { "mini.ai", enabled = false }, -- Text block (native) modifications
+  { "persistence.nvim", enabled = false }, -- Session management
 }

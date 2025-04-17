@@ -1,20 +1,28 @@
 --[[
-File Explorer
-https://github.com/nvim-neo-tree/neo-tree.nvim
+Files: file management, movement
 ]]
 
 return {
+  -- fzf-lua: fuzzy finder
+  -- TODO: do we need to disable CTRL+u like we did with telescope?
   {
-    "nvim-neo-tree/neo-tree.nvim",
+    "ibhagwan/fzf-lua",
     keys = {
-      {
-        "<leader>e",
-        function()
-          require("neo-tree.command").execute({ toggle = true })
-        end,
-        desc = "File Explorer (toggle)",
+      { "<c-p>", "<cmd>FzfLua files<cr>", desc = "Find files" },
+    },
+    opts = {
+      keymap = {
+        fzf = {
+          ["ctrl-u"] = "unix-line-discard",
+        },
       },
     },
+  },
+
+  -- NeoTree: file explorer
+  -- https://github.com/nvim-neo-tree/neo-tree.nvim
+  {
+    "nvim-neo-tree/neo-tree.nvim",
     opts = {
       default_component_configs = {
         indent = {
@@ -22,7 +30,6 @@ return {
         },
       },
       filesystem = {
-        bind_to_cwd = true,
         commands = {
           -- Replace delete with trash.
           -- https://github.com/nvim-neo-tree/neo-tree.nvim/issues/202

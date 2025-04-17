@@ -9,48 +9,60 @@ return {
       return {}
     end,
   },
+
   {
-    "hrsh7th/nvim-cmp",
-    ---@param opts cmp.ConfigSchema
-    opts = function(_, opts)
-      local has_words_before = function()
-        unpack = unpack or table.unpack
-        local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-        return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-      end
+    "saghen/blink.cmp",
+    dependencies = { "ribru17/blink-cmp-spell" },
+    opts = {
+      completion = {
+        list = {
+          selection = {
+            auto_insert = true,
+            preselect = false,
+          },
+        },
+      },
+      keymap = {
+        -- This is "default" but enter key also confirms.
+        ["<CR>"] = { "accept", "fallback" },
 
-      local luasnip = require("luasnip")
-      local cmp = require("cmp")
+        ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+        ["<C-e>"] = { "hide" },
+        ["<C-y>"] = { "select_and_accept" },
 
-      -- noselect is key for things not being annoying (to me)
-      opts.completion.completeopt = "menu,menuone,noinsert,noselect"
+        ["<C-p>"] = { "select_prev", "fallback" },
+        ["<C-n>"] = { "select_next", "fallback" },
 
-      opts.mapping = vim.tbl_extend("force", opts.mapping, {
-        ["<CR>"] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-        ["<Tab>"] = cmp.mapping(function(fallback)
-          if cmp.visible() then
-            -- You could replace select_next_item() with confirm({ select = true }) to get VS Code autocompletion behavior
-            cmp.select_next_item()
-          -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
-          -- this way you will only jump inside the snippet region
-          elseif luasnip.expand_or_jumpable() then
-            luasnip.expand_or_jump()
-          elseif has_words_before() then
-            cmp.complete()
-          else
-            fallback()
-          end
-        end, { "i", "s" }),
-        ["<S-Tab>"] = cmp.mapping(function(fallback)
-          if cmp.visible() then
-            cmp.select_prev_item()
-          elseif luasnip.jumpable(-1) then
-            luasnip.jump(-1)
-          else
-            fallback()
-          end
-        end, { "i", "s" }),
-      })
-    end,
+        ["<C-b>"] = { "scroll_documentation_up", "fallback" },
+        ["<C-f>"] = { "scroll_documentation_down", "fallback" },
+
+        ["<Tab>"] = { "snippet_forward", "fallback" },
+        ["<S-Tab>"] = { "snippet_backward", "fallback" },
+      },
+      -- fuzzy = {
+      --   -- (This is for/from blink-cmp-spell)
+      --   sorts = {
+      --     function(a, b)
+      --       local sort = require("blink.cmp.fuzzy.sort")
+      --       if a.source_id == "spell" and b.source_id == "spell" then
+      --         return sort.label(a, b)
+      --       end
+      --     end,
+      --     "score",
+      --     "kind",
+      --     "label",
+      --   },
+      -- },
+      sources = {
+        default = { "lsp", "path", "snippets", "buffer", "spell" },
+        providers = {
+          spell = {
+            name = "Spell",
+            module = "blink-cmp-spell",
+            opts = {},
+          },
+        },
+      },
+    },
   },
 }

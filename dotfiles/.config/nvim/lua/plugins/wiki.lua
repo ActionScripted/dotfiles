@@ -19,7 +19,7 @@ return {
       vim.g.vimwiki_global_ext = 0
     end,
     keys = {
-      { "<leader>w", "<cmd>VimwikiIndex<cr>", desc = "Wiki" },
+      { "<leader>W", "<cmd>VimwikiIndex<cr>", desc = "Wiki" },
     },
   },
 }

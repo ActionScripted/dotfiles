@@ -29,7 +29,10 @@
 	ff = only
 	rebase = true
 [push]
+	autoSetupRemote = true
 	default = current
+[tag]
+	sort = version:refname
 [user]
 	email = actionscripted@gmail.com
 	name = Michael Thompson
@@ -51,6 +54,7 @@
 				done; \
 		done; \
 	}; fun"
+	copy-branch = "!git rev-parse --abbrev-ref HEAD | pbcopy"
 	diff-fancy = "!fun() { [ \"$GIT_PREFIX\" != \"\" ] && cd "$GIT_PREFIX"; git diff --color $@ | diff-so-fancy | less --tabs=4 -RFX; }; fun"
 	first = log -n 1 --reverse
 	hoard = stash --include-untracked
@@ -79,11 +83,12 @@
 	df = diff-fancy
 	fa = fetch --prune --all
 	st = status
+	sw = switch
 	sync = !git fa && git pull && git bc && git bcs
 	times = times-me
 
 [include]
 	path = ~/.config/git/config.local
 
-[includeIf "gitdir:~/Strata/"]
-	path = ~/Strata/.gitconfig
+[includeIf "gitdir:~/somecompany/"]
+	path = ~/somecompany/.gitconfig

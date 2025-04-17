@@ -13,7 +13,7 @@ local config = require("config.kickflip")
 return {
   {
     "williamboman/mason.nvim",
-    cmd = "Mason",
+    cmd = { "Mason", "MasonUpdate", "MasonInstall", "MasonUninstall" },
     keys = { { "<leader>m", "<cmd>Mason<cr>", desc = "Mason (packages)" } },
     opts = { ensure_installed = config.packages.ensure_installed },
     ---@param opts MasonSettings | {ensure_installed: string[]}

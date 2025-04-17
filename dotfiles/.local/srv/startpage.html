@@ -5,8 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>CHANGEME@strata</title>
-    <meta name="description" content="Start page for CHANGEME@strata" />
+    <title>michael.thompson@personal</title>
+    <meta
+      name="description"
+      content="Start page for michael.thompson@personal"
+    />
 
     <style type="text/css">
       html,
@@ -243,12 +246,12 @@
       <div class="global-header__container">
         <h1>
           <a href="#" class="section-toggle"
-            ><strong>CHANGEME</strong>@strata</a
+            ><strong>michael.thompson</strong>@personal</a
           >
         </h1>
         <h1>
           <a href="#" class="section-toggle hidden"
-            ><strong>CHANGEME</strong>@personal</a
+            ><strong>mthompson</strong>@secret</a
           >
         </h1>
       </div>
@@ -268,6 +271,11 @@
             >
           </li>
           <li class="link-item">
+            <a class="link-anchor" href="https://keep.google.com/"
+              ><strong>Keep</strong></a
+            >
+          </li>
+          <li class="link-item">
             <a class="link-anchor" href="https://mail.google.com/"
               ><strong>Mail</strong></a
             >
@@ -280,11 +288,26 @@
         </ul>
       </section>
 
-      <section class="section-block hidden">
+      <section class="section-block">
         <ul class="link-list">
+          <li class="link-item">
+            <a class="link-anchor" href="https://airtable.com/"
+              ><strong>Airtable</strong></a
+            >
+          </li>
+          <li class="link-item">
+            <a class="link-anchor" href="https://bard.google.com/"
+              ><strong>Bard</strong></a
+            >
+          </li>
           <li class="link-item">
             <a class="link-anchor" href="https://boingboing.net/"
               ><strong>Boing Boing</strong></a
+            >
+          </li>
+          <li class="link-item">
+            <a class="link-anchor" href="https://chat.openai.com"
+              ><strong>ChatGPT</strong></a
             >
           </li>
           <li class="link-item">
@@ -298,6 +321,16 @@
             >
           </li>
           <li class="link-item">
+            <a class="link-anchor" href="https://github.com/"
+              ><strong>GitHub</strong></a
+            >
+          </li>
+          <li class="link-item">
+            <a class="link-anchor" href="https://app.grammarly.com/"
+              ><strong>Grammarly</strong></a
+            >
+          </li>
+          <li class="link-item">
             <a class="link-anchor" href="https://kottke.org/"
               ><strong>Kottke</strong></a
             >
@@ -308,8 +341,28 @@
             >
           </li>
           <li class="link-item">
+            <a class="link-anchor" href="https://leetcode.com/"
+              ><strong>LeetCode</strong></a
+            >
+          </li>
+          <li class="link-item">
+            <a class="link-anchor" href="https://www.linkedin.com/"
+              ><strong>LinkedIn</strong></a
+            >
+          </li>
+          <li class="link-item">
             <a class="link-anchor" href="https://lobste.rs/"
               ><strong>Lobsters</strong></a
+            >
+          </li>
+          <li class="link-item">
+            <a class="link-anchor" href="https://neetcode.io/"
+              ><strong>NeetCode</strong></a
+            >
+          </li>
+          <li class="link-item">
+            <a class="link-anchor" href="https://www.notion.so"
+              ><strong>Notion</strong></a
             >
           </li>
           <li class="link-item">
@@ -323,22 +376,58 @@
             >
           </li>
           <li class="link-item">
-            <a class="link-anchor" href="https://www.theverge.com/"
-              ><strong>The Verge</strong></a
-            >
-          </li>
-          <li class="link-item">
             <a class="link-anchor" href="https://tildes.net"
               ><strong>Tildes</strong></a
             >
           </li>
           <li class="link-item">
-            <a class="link-anchor" href="https://maizelink.umich.edu/"
-              ><strong>UM MaizeL</strong></a
+            <a class="link-anchor" href="https://www.youtube.com/"
+              ><strong>YouTube</strong></a
+            >
+          </li>
+        </ul>
+      </section>
+
+      <section class="section-block hidden">
+        <ul class="link-list">
+          <li class="link-item">
+            <a class="link-anchor" href="nothing.com"
+              ><strong>Nothing Here!</strong></a
             >
           </li>
         </ul>
       </section>
     </main>
+
+    <footer class="global-footer">
+      <div class="global-footer__container"></div>
+    </footer>
+
+    <script type="text/javascript">
+      // Toggle personal/work section visibility
+      document.querySelectorAll(".section-toggle").forEach((toggle) => {
+        toggle.addEventListener("click", (evt) => {
+          document.querySelectorAll(".section-block").forEach((section) => {
+            if (!section.classList.contains("section-block--global")) {
+              section.classList.toggle("hidden");
+            }
+          });
+
+          document.querySelectorAll(".section-toggle").forEach((title) => {
+            title.classList.toggle("hidden");
+          });
+
+          evt.preventDefault();
+        });
+      });
+
+      // Toggle help section visibility
+      /*
+    document.querySelector('.help-toggle').addEventListener('click', evt => {
+      document.querySelector('.help-content').classList.toggle('hidden');
+      evt.preventDefault();
+    });
+    */
+    </script>
   </body>
 </html>

@@ -66,6 +66,7 @@ Once you've gotten things setup you can trash `.git` and create/init your own re
 Things you might want to customize:
 
 - Remove the `somecompany` bits, because you don't work there. Instead add your own company shell, start page etc.
+- Change `CHANGEME` where appropriate
 
 ## Updating
 

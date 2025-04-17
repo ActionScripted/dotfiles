@@ -8,21 +8,30 @@ vim.opt.clipboard = ""
 vim.opt.confirm = false
 vim.opt.mouse = "a"
 vim.opt.shortmess:append("rIs") -- "[RO]", (no) intro, (no) search
+vim.opt.spell = true
+vim.opt.spelllang = { "en_us" }
 vim.opt.swapfile = false
-vim.opt.undofile = true
+vim.opt.timeoutlen = 10
+vim.opt.undofile = false
 
 -- Appearance
 vim.opt.equalalways = false
+vim.opt.conceallevel = 0
 vim.opt.list = true
 vim.opt.listchars = { tab = "> ", trail = "°" }
 vim.opt.number = true
 vim.opt.numberwidth = 5
-vim.opt.relativenumber = false -- WARN: performance hit
+vim.opt.relativenumber = true -- WARN: performance hit
 vim.opt.report = 42
 vim.opt.ruler = true
 vim.opt.showmode = true
 vim.opt.syntax = "on"
 vim.opt.termguicolors = true
+
+-- Appearance: Breaks and Wrapping
+vim.opt.linebreak = true
+vim.opt.showbreak = "↪"
+vim.opt.wrap = true
 
 -- Editing
 vim.g.autoformat = true
@@ -60,10 +69,18 @@ local skeletons = {
   { "*.html", "html.html" },
   { "*.py", "python.py" },
   { "*.sh", "bash.sh" },
+  { "*brainstorm*.md", "note--brainstorm.md" },
+  { "*flow*.md", "FLOW.md" },
+  { "*interview*.md", "note--interview.md" },
+  { "*issue*.md", "note--issue.md" },
+  { "*meeting*.md", "note--meeting.md" },
+  { "*process*.md", "note--process.md" },
+  { "*research*.md", "note--research.md" },
+  { "*scope*.md", "note--scope.md" },
   { "Makefile", "Makefile" },
 }
 
-for i, v in ipairs(skeletons) do
+for i, _ in ipairs(skeletons) do
   vim.api.nvim_create_autocmd("BufNewFile", {
     command = "0r ~/.config/nvim/skeletons/" .. skeletons[i][2],
     pattern = skeletons[i][1],
@@ -80,3 +97,6 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.tabstop = 2
   end,
 })
+
+-- GitHub Copilot (NOTE: doesn't work, see plugins)
+vim.g.copilot_enabled = false

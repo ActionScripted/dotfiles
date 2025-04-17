@@ -5,7 +5,7 @@ foo := bar
 .DEFAULT_GOAL := help
 
 # Recipe phony targets (that aren't files...all of them)
-.PHONY : dev development
+.PHONY: all clean dev development help test
 
 # Recipes: Aliases
 dev: development

@@ -1,19 +1,25 @@
 --[[
 -- Servers: language servers and debug adapters.
 -- ---
--- Lanuage servers and debug adapters provide autocomplete, linting, formatting, etc.
+-- Language servers and debug adapters provide autocomplete, linting, formatting, etc.
 -- Lots of wiring here to connect servers to completion, packages, etc.
 --
 -- Helpful commands / related:
+--  :ConformInfo - Show Conform (formatter) information
 --  :LspInfo - Show LSP information
+--  :NullLsInfo - Show Null-LS (catch-all) information
 ]]
 
 return {
-  -- lspconfig
+  -- Automatic Poetry venv handling
+  -- { "karloskar/poetry-nvim" },
+
+  -- LSPs
   {
     "neovim/nvim-lspconfig",
     opts = {
       diagnostics = {
+        severity_sort = true,
         underline = true,
         update_in_insert = false,
         virtual_text = {
@@ -21,102 +27,93 @@ return {
           source = "if_many",
           spacing = 3,
         },
-        severity_sort = true,
       },
       servers = {
+        angularls = {},
         bashls = {},
-        cmake = {},
+        eslint = {},
+        groovyls = {},
         html = {},
         jsonls = {},
         lua_ls = {
-          tsserver = {},
           settings = {
             Lua = {
-              workspace = {
-                checkThirdParty = false,
-              },
-              completion = {
-                callSnippet = "Replace",
-              },
+              completion = { callSnippet = "Replace" },
+              workspace = { checkThirdParty = false },
             },
           },
         },
-        pylsp = {
-          settings = {
-            pylsp = {
-              -- TODO: ruff all the things
-              -- https://github.com/python-lsp/python-lsp-server#configuration
-              configurationSources = { "flake8", "mccabe", "pycodestyle", "pyflakes", "ruff", "ruff_lsp" },
-              plugins = {
-                flake8 = { enabled = true },
-                mccabe = { enabled = false },
-                pycodestyle = { enabled = false },
-                pyflakes = { enabled = false },
-                --ruff_lsp = { enabled = false },
-                --ruff = { enabled = false },
-              },
-            },
-          },
-        },
+        superhtml = {},
+        pyright = {},
+        ruff_lsp = {},
         terraformls = {},
+        tsserver = {
+          init_options = {
+            preferences = {
+              importModuleSpecifierPreference = "non-relative",
+            },
+          },
+          settings = {
+            preferences = {
+              importModuleSpecifierPreference = "non-relative",
+            },
+          },
+        },
+        vtsls = {
+          settings = {
+            typescript = {
+              preferences = {
+                importModuleSpecifier = "non-relative",
+              },
+            },
+          },
+        },
         yamlls = {},
       },
     },
   },
 
-  -- Formatters.
-  -- null-ls wires things like black into lsp for auto-formatting, etc.
+  -- Formatters
+  -- NOTE: LazyExtras may define a bunch of these elsewhere.
   {
-    "nvimtools/none-ls.nvim",
-    opts = function(_, opts)
-      local nls = require("null-ls")
-      opts.root_dir = opts.root_dir
-        or require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git")
-      opts.sources = vim.list_extend(opts.sources or {}, {
-        nls.builtins.diagnostics.checkmake,
-        --nls.builtins.diagnostics.flake8.with({
-        --  -- https://github.com/jose-elias-alvarez/null-ls.nvim/issues/848
-        --  cwd = function(params)
-        --    return vim.fn.fnamemodify(params.bufname, ":h")
-        --  end,
-        --  diagnostics_format = "#{c}: #{m}",
-        --}),
-        nls.builtins.diagnostics.djlint.with({
-          -- https://github.com/jose-elias-alvarez/null-ls.nvim/issues/848
-          cwd = function(params)
-            return vim.fn.fnamemodify(params.bufname, ":h")
-          end,
-        }),
-        nls.builtins.diagnostics.eslint_d,
-        -- TODO: ignore .env files, somehow
-        nls.builtins.diagnostics.shellcheck,
-        nls.builtins.formatting.beautysh.with({
-          extra_args = { "--force-function-style", "fnpar", "--indent-size", "4" },
-        }),
-        nls.builtins.formatting.black.with({
-          -- https://github.com/jose-elias-alvarez/null-ls.nvim/issues/848
-          cwd = function(params)
-            return vim.fn.fnamemodify(params.bufname, ":h")
-          end,
-        }),
-        nls.builtins.formatting.djlint.with({
-          -- https://github.com/jose-elias-alvarez/null-ls.nvim/issues/848
-          cwd = function(params)
-            return vim.fn.fnamemodify(params.bufname, ":h")
-          end,
-        }),
-        nls.builtins.formatting.isort.with({
-          -- https://github.com/jose-elias-alvarez/null-ls.nvim/issues/848
-          cwd = function(params)
-            return vim.fn.fnamemodify(params.bufname, ":h")
-          end,
-        }),
-        nls.builtins.formatting.prettierd,
-        nls.builtins.formatting.shfmt.with({ extra_args = { "-i", "4", "-ci", "-kp" } }),
-        nls.builtins.formatting.stylua.with({
-          extra_args = { "--indent-type", "Spaces", "--indent-width", "2" },
-        }),
-      })
-    end,
+    "stevearc/conform.nvim",
+    opts = {
+      log_level = vim.log.levels.DEBUG,
+      formatters_by_ft = {
+        django = { "djlint" },
+        fish = {},
+        groovy = { "npm-groovy-lint" },
+        html = { "superhtml", "prettier" },
+        htmldjango = { "djlint" },
+        lua = { "stylua" },
+        python = { "ruff_fix", "ruff_format" },
+        --sh = { "beautysh", "shfmt" },
+        sh = { "shfmt" },
+      },
+      formatters = {
+        shfmt = { prepend_args = { "-i", "4", "-ci", "-kp" } },
+        stylua = { prepend_args = { "--indent-type", "Spaces", "--indent-width", "2" } },
+      },
+    },
+  },
+
+  -- Linters
+  -- NOTE: LazyExtras may define a bunch of these elsewhere.
+  {
+    "mfussenegger/nvim-lint",
+    opts = {
+      linters = {
+        ["markdownlint-cli2"] = {
+          args = {
+            "--config",
+            vim.fn.expand("~/.config/markdownlint/.markdownlint.yaml"),
+          },
+        },
+      },
+      linters_by_ft = {
+        make = { "checkmake" },
+        terraform = { "terraform_validate", "tflint" },
+      },
+    },
   },
 }

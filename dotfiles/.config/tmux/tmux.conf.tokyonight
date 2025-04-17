@@ -43,7 +43,7 @@ bind-key m set-option -g mouse on  \; display 'Mouse: ON'
 bind-key M set-option -g mouse off \; display 'Mouse: OFF'
 
 # Activity alerts
-set  -g visual-activity  on
+set  -g visual-activity  off
 setw -g monitor-activity on
 
 # Status line

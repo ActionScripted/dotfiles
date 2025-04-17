@@ -2,7 +2,7 @@
 # NOTE: needs to be above P10K's instant prompt
 if [[ $(pgrep zsh | wc -l) -le 1 ]]; then
     if [[ $(command -v cowsay fortune lolcat | wc -l) -eq 3 ]]; then
-        fortune | cowsay -f satanic | lolcat -t
+        fortune | cowsay -f llama | lolcat -t
     fi
 fi
 
@@ -86,6 +86,14 @@ DISABLE_LS_COLORS="true"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
+
+# ssh-agent (plugin)
+#zstyle :omz:plugins:ssh-agent agent-forwarding no
+#zstyle :omz:plugins:ssh-agent identities id_rsa id_ed25519
+#zstyle :omz:plugins:ssh-agent lazy yes
+#zstyle :omz:plugins:ssh-agent quiet yes
+#zstyle :omz:plugins:ssh-agent ssh-add-args --apple-load-keychain
+
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
@@ -93,10 +101,12 @@ DISABLE_LS_COLORS="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
     aws
+    direnv
     docker
     httpie
     docker-compose
     git
+    #ssh-agent
     zsh-vi-mode
 )
 
@@ -163,3 +173,8 @@ ZVM_VI_HIGHLIGHT_BACKGROUND=#414868
 
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f ~/.config/zsh/p10k.zsh ]] || source ~/.config/zsh/p10k.zsh
+
+if command -v zoxide >/dev/null; then
+    eval "$(zoxide init zsh --cmd z)"
+fi
+

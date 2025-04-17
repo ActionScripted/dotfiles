@@ -4,7 +4,6 @@ export EDITOR=nvim
 export LANG=en_US.UTF-8
 export LANGUAGE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
-export LSCOLORS='exfxcxdxbxegedabagacad'
 export VISUAL=nvim
 
 # XDG (wiki.archlinux.org/index.php/XDG_Base_Directory_support)
@@ -16,20 +15,24 @@ export XDG_STATE_HOME=$HOME/.local/state
 # Ansible
 export ANSIBLE_NOCOWS=1
 
+# Colors
+export DIRCOLORS_CMD=''
+if command -v dircolors >/dev/null; then DIRCOLORS_CMD='dircolors'; fi
+if command -v gdircolors >/dev/null; then DIRCOLORS_CMD='gdircolors'; fi
+export LS_COLORS="di=1;34:ln=1;35:so=1;32:pi=1;33:ex=1;32:bd=1;44:cd=1;43:su=30;41:sg=30;46:tw=30;42:ow=30;43:fi=0;37"
+export LSCOLORS="gxfxcxdxbxegedabagacad"
+
 # Composer
 export PATH=$PATH:~/.composer/vendor/bin
 
 # Dad Joke
 alias dadjoke='curl -s https://fatherhood.gov/jsonapi/node/dad_jokes | jq ".data[$(( $RANDOM % 50 ))] | .attributes.field_joke_opener, .attributes.field_joke_response" | cowsay | lolcat'
 
-# dircolors
-DIRCOLORS_CMD=''
-if command -v dircolors >/dev/null; then DIRCOLORS_CMD='dircolors'; fi
-if command -v gdircolors >/dev/null; then DIRCOLORS_CMD='gdircolors'; fi
-[[ ! -z "$DIRCOLORS_CMD" ]] && eval $($DIRCOLORS_CMD ~/.config/shell/dircolors/dircolors.solarized-256-dark)
-
 # ESLint
 alias eslint='eslint -c ~/.config/eslint/eslintrc.js --resolve-plugins-relative-to=$(npm prefix -g)/lib/node_modules'
+
+# direnv
+export DIRENV_LOG_FORMAT=""
 
 # Go
 export GOPATH=$HOME/.go
@@ -72,31 +75,29 @@ export TASKRC=$XDG_CONFIG_HOME/task/taskrc
 export TIMEWARRIORDB=$XDG_DATA_HOME/timewarrior
 
 # Yarn
-if command -v yarn >/dev/null; then export PATH="$(yarn global bin):$PATH"; fi
+#if command -v yarn >/dev/null; then export PATH="$(yarn global bin):$PATH"; fi
 
 # Commands
 alias dc="docker-compose"
 alias ex="echo NOBODY WANTS THIS COMMAND \(but if you actually do, unalias 'ex'\)"
 alias greg="grep"
-alias irssi="irssi --config='$XDG_CONFIG_HOME'/irssi/config --home='$XDG_DATA_HOME'/irssi"
+alias irssi='irssi --config=$XDG_CONFIG_HOME/irssi/config --home=$XDG_DATA_HOME/irssi'
+alias mux="tmuxinator"
 alias pip3_upgrade_all="pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1 | xargs -n1 pip3 install -U"
 alias pip_upgrade_all="pip freeze --local | grep -v '^\-e' | cut -d = -f 1 | xargs -n1 sudo -H pip install -U"
 alias py='python'
+alias reload='source $ZDOTDIR/.zshrc'
 alias rot13="tr 'A-Za-z' 'N-ZA-Mn-za-m'"
 alias rsync_pretty="rsync -azP"
 alias rsync_remote="echo rsync -azP -e ssh you@server.com:some/path/file.zip ~/Desktop/"
 alias tmux='tmux -f "$XDG_CONFIG_HOME"/tmux/tmux.conf'
 alias tmuxa='tmux a -t'
+alias tmuxn='tmux new -s'
 alias tree='tree -C'
 alias vim="nvim"
 alias wget_folder="wget -np -r "
 alias wget_site="wget -r -p -U Mozilla "
 alias wget_site_fancy="echo wget -r -p --convert-links -U Mozilla -E -D \"www.site.com,site.com\" -H www.site.com"
-
-# Echo tasks (for stand-ups)
-function asana() {
-    python3 "${HOME}/.local/bin/asana.py" "${@}"
-}
 
 # autossh
 function autossh_start() {
@@ -107,14 +108,57 @@ function autossh_stop() {
     pkill autossh
 }
 
+function base64_prompt() {
+    if [ "$1" = "decode" ]; then
+        echo -n "(decode) > "
+        read -r input
+        decoded=$(printf "%s" "$input" | base64 --decode)
+        echo "$decoded"
+    else
+        echo -n "(encode) > "
+        read -r input
+        encoded=$(printf "%s" "$input" | base64)
+        echo "$encoded"
+    fi
+}
+
+function echo_color() {
+    local message="$1"
+    local color="${2:-reset}"
+    local bold="${3:-false}"
+
+    local bold_code="0"
+    if [[ $bold == "true" ]] || [[ $bold == "bold" ]]; then
+        bold_code="1"
+    fi
+
+    local color_code="0"
+    case $color in
+        "black") color_code="30" ;;
+        "blue") color_code="34" ;;
+        "cyan") color_code="36" ;;
+        "green") color_code="32" ;;
+        "magenta") color_code="35" ;;
+        "red") color_code="31" ;;
+        "reset") color_code="0" ;;
+        "white") color_code="37" ;;
+        "yellow") color_code="33" ;;
+        *) color_code="0" ;;
+    esac
+
+    echo -e "\033[${bold_code};${color_code}m${message}\033[0m"
+}
+
 # Automatically load .env or .env.* file by name
 # https://gist.github.com/mihow/9c7f559807069a03e302605691f85572#gistcomment-3225272
 function envup() {
-    local file=$([ -z "$1" ] && echo ".env" || echo ".env.$1")
+    local file
 
-    if [ -f $file ]; then
+    file=$([ -z "$1" ] && echo ".env" || echo ".env.$1")
+
+    if [ -f "$file" ]; then
         set -a
-        source $file
+        source "$file"
         set +a
     else
         echo "No $file file found" 1>&2
@@ -149,10 +193,9 @@ function docker_cleanup() {
     if [[ $REPLY =~ ^[Nn]$ ]]; then
         echo "Okay, nevermind. I was, uh, just kidding anyways."
     else
-        # See ~/Edification/bash/arrays.sh for more
         for cmd in "${cmds[@]}"; do
             echo -e "\n==> ${cmd}"
-            eval $cmd
+            eval "$cmd"
             echo "---"
         done
         echo
@@ -201,6 +244,17 @@ function legacy_mode() {
     unalias vim
 }
 
+# Show process, PID, host/port
+function show_ports() {
+    lsof -Pn -i4 | grep -v LISTEN | grep -v ESTABLISHED | grep -v ICMP
+    echo "---"
+    lsof -Pn -i4 | grep ESTABLISHED
+    echo "---"
+    lsof -Pn -i4 | grep ICMP
+    echo "---"
+    lsof -Pn -i4 | grep LISTEN
+}
+
 # Check statuses for third-party services.
 function statuspage() {
     # TODO: check for curl, jq, etc.
@@ -208,6 +262,7 @@ function statuspage() {
     # TODO: install yq, use for Slack and XML
     statuspage_api_path="/api/v2/status.json"
     statuspage_services=(
+        "https://bitbucket.status.atlassian.com/"
         "https://confluence.status.atlassian.com/"
         "https://jira-software.status.atlassian.com/"
         "https://status.circleci.com/"
@@ -226,64 +281,10 @@ function statuspage() {
 
     for statuspage_service in "${statuspage_services[@]}"; do
         json=$(curl -s "$statuspage_service$statuspage_api_path")
-        ind=$(echo $json | jq -r '.status.indicator')
-        dsc=$(echo $json | jq -r '.status.description')
+        ind=$(echo "$json" | jq -r '.status.indicator')
+        dsc=$(echo "$json" | jq -r '.status.description')
         echo "$statuspage_service: $ind ($dsc)"
     done
-}
-
-function sso_tho() {
-    sso-login "tho"
-}
-
-function sso_tho_admin() {
-    sso-login "tho-admin"
-}
-
-function sso_logout() {
-    sso-logout "tho"
-    sso-logout "tho-admin"
-}
-
-function sso_logout_tho() {
-    sso-logout "tho"
-}
-
-function sso_logout_tho_admin() {
-    sso-logout "tho-admin"
-}
-
-function sso_login() {
-    export AWS_DEFAULT_PROFILE=$1
-    export AWS_PROFILE=$1
-    export AWS_EB_PROFILE=$1
-    asp "${1}"
-    aws sso login
-}
-
-function sso_logout() {
-    aws sso logout
-    unset AWS_DEFAULT_PROFILE
-    unset AWS_PROFILE
-    unset AWS_EB_PROFILE
-
-}
-
-# SSH agent up/down (TODO: broken)
-function ssh_agent_init() {
-    if [ ! -S ~/.ssh/ssh_auth_sock ]; then
-        eval $(ssh-agent)
-        ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
-    fi
-
-    export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
-    ssh-add
-}
-
-function ssh_agent_deinit() {
-    if [ -n "$SSH_AUTH_SOCK" ]; then
-        eval $(ssh-agent -k)
-    fi
 }
 
 # Update personal configs
@@ -299,21 +300,20 @@ function update_dotfiles() {
 
 # Helpful stuff
 function weird() {
-    printf '\n%s\n' '-----------------------------------------------------'
-    printf "Shit's weird, eh? Maybe this'll help."
-    printf '\n%s\n' '-----------------------------------------------------'
+    printf '\n%s\n' '-----------------------------------------------------------------'
+    printf "Stuff is weird, eh? Life is strange. Maybe this'll help."
+    printf '\n%s\n' '-----------------------------------------------------------------'
     printf "\n"
     printf "Terminal:\n"
     printf '    ^j    : line feed, helps with "stuck" terms\n'
     printf '    reset : reset/init strings\n'
     printf "\n"
-    printf '\n%s\n' '-----------------------------------------------------'
+    printf "Try ^j until you get a prompt then enter \"stty sane\""
+    printf '\n%s\n' '-----------------------------------------------------------------'
 }
 
 # Host-specific Profiles
 case $HOSTNAME in
-    EngineeringsMBP*) source "$XDG_CONFIG_HOME"/shell/hosts/strata.sh ;;
-    SOI-LP50*) source "$XDG_CONFIG_HOME"/shell/hosts/strata.sh ;;
-    starlabs*) source "$XDG_CONFIG_HOME"/shell/hosts/personal.sh ;;
-    tho-lap-dolly*) source "$XDG_CONFIG_HOME"/shell/hosts/personal.sh ;;
+    CHANGEME*)      source "$XDG_CONFIG_HOME"/shell/hosts/personal.sh ;;
+    somecompany001*)  source "$XDG_CONFIG_HOME"/shell/hosts/somecompany.sh ;;
 esac

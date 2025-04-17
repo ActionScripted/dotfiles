@@ -1,11 +1,5 @@
 local M = {}
 
--- Help
-M.help = {
-  delay = 150,
-  options = {},
-}
-
 -- Packages
 M.packages = {
   ensure_installed = {
@@ -13,16 +7,16 @@ M.packages = {
     "beautysh",
     "black",
     "djlint",
-    "eslint_d",
+    "eslint_d", -- TODO: replace with...Biome? Something else?
     "flake8",
     "isort",
     "prettierd",
+    "ruff",
     "shfmt",
+    "shellcheck",
     "stylua",
     "taplo",
-    --"ruff",
-    --"ruff-lsp",
-  }
+  },
 }
 
 -- Parsers
@@ -30,6 +24,7 @@ M.parsers = {
   ensure_installed = {
     "bash",
     "c",
+    "css",
     "html",
     "javascript",
     "json",
@@ -46,7 +41,7 @@ M.parsers = {
     "vim",
     "vimdoc",
     "yaml",
-  }
+  },
 }
 
 -- Wiki
