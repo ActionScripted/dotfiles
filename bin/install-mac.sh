@@ -21,33 +21,38 @@ dry_run=1
 
 # Requirements
 brew_pkgs=(
-    "awscli"
+    "ast-grep"
     "bat"
     "coreutils"
     "cowsay"
+    "delta"
     "diff-so-fancy"
     "eza"
+    "fd"
     "findutils"
     "font-fira-code"
     "font-fira-code-nerd-font"
     "fortune"
+    "fzf"
     "fzy"
     "git"
-    "gnupg"
+    "golang"
+    "gpg"
     "httpie"
     "jq"
+    "keycastr"
     "lazygit"
     "lolcat"
     "multitail"
     "neovim"
     "nginx"
-    "nmap"
     "node"
     "pyenv"
     "pyenv-virtualenv"
     "python"
     "rename"
     "ripgrep"
+    "rustup-init"
     "tldr"
     "tmux"
     "trash"
@@ -55,6 +60,7 @@ brew_pkgs=(
     "wget"
     "yarn"
     "yq"
+    "zoxide"
 )
 
 # Options
@@ -108,32 +114,51 @@ fi
 yeehaw "mkdir -p ~/.local/share/zsh/"
 
 # Requirements: Setup
-yeehaw "brew tap earthly/earthly"
 yeehaw "brew tap github/gh"
 yeehaw "brew tap hashicorp/tap"
 yeehaw "brew tap homebrew/cask-fonts"
-yeehaw "brew tap oven-sh/bun"
 
 # Requirements: Install
 for pkg in "${brew_pkgs[@]}"; do
     yeehaw "brew install ${pkg}"
 done
 
+# GPG: Basic
+yeehaw "mkdir -p ~/.local/share/gnupg"
+yeehaw "chmod 700 ~/.local/share/gnupg"
+
 # Python: Environment
-python_version=$(python --version 2>&1 | awk '{print $2}')
+python_version=$(/usr/local/bin/python3 --version 2>&1 | awk '{print $2}')
 yeehaw "pyenv install ${python_version}"
 yeehaw "pyenv global ${python_version}"
 
 # Python: Packages
 yeehaw "pip install --upgrade pip"
-yeehaw "pip install --upgrade cookiecutter ipython numpy pandas"
+yeehaw "pip install --upgrade setuptools"
+yeehaw "pip install --upgrade cookiecutter ipython neovim numpy pandas pydantic"
+
+# Rust: Setup
+# Using rustup for managing Rust install. Needs to be initialized.
+yeehaw "rustup-init -y"
 
 # VS Code: Setup
 vscode_target="$HOME/Library/Application Support/Code/User/settings.json"
 if [ -e "$vscode_target" ]; then
     yeehaw "rm $vscode_target"
 fi
+yeehaw "mkdir -p $HOME/Library/Application Support/Code/User/"
 yeehaw "ln -s ~/.config/vscode/settings.json $vscode_target"
 yeehaw "cat ~/.config/vscode/extensions.txt | xargs -L 1 code --install-extension"
+
+# Local: Local Configs / Overrides
+yeehaw "touch ~/.config/nvim/lua/plugins/local.lua"
+yeehaw "touch ~/.config/shell/local.secrets.sh"
+
+echo "---"
+if [[ $dry_run -eq 0 ]]; then
+    echo "If you want to run for real: \`./install-mac.sh -c\`"
+else
+    echo "All set! Hope we didn't break anything. 😉 (jk jk)"
+fi
 
 exit 0
